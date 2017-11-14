@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Joker's Home</title>
+    <description>This is a junior programmer!</description>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Wed, 15 Nov 2017 00:15:17 +0800</pubDate>
+    <lastBuildDate>Wed, 15 Nov 2017 00:15:17 +0800</lastBuildDate>
+    <generator>Jekyll v3.4.0</generator>
+    
+      <item>
+        <title>“Vim切换Normal模式变慢”问题解决</title>
+        <description>&lt;h4 id=&quot;问题&quot;&gt;问题&lt;/h4&gt;
+
+&lt;p&gt;准备把 Vim 用起来，今天在装 YouCompleteMe 插件。插件还没装好，反倒遇到了其他的问题：Vim 由 Insert 模式切换为 Normal 模式时，产生了明显的延迟感。急忙去 Google 和 Baidu 查询解决方法，结果半天都没搜出几个结果。&lt;/p&gt;
+
+&lt;h4 id=&quot;解决&quot;&gt;解决&lt;/h4&gt;
+&lt;p&gt;最后把关键词改为英文搜索，才得救！
+在 &lt;code class=&quot;highlighter-rouge&quot;&gt;.vimrc&lt;/code&gt; 文件中增加一行配置如下：&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;timeoutlen&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1000 &lt;span class=&quot;nv&quot;&gt;ttimeoutlen&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;参考资料：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.johnhawthorn.com/2012/09/vi-escape-delays/&quot;&gt;Eliminating delays on ESC in vim and zsh&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/vim-airline/vim-airline/issues/124&quot;&gt;Delay when switching insert mode to normal mode&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Tue, 14 Nov 2017 22:02:11 +0800</pubDate>
+        <link>http://localhost:4000/2017/11/Vim%E5%88%87%E6%8D%A2Normal%E6%A8%A1%E5%BC%8F%E5%8F%98%E6%85%A2-%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/11/Vim%E5%88%87%E6%8D%A2Normal%E6%A8%A1%E5%BC%8F%E5%8F%98%E6%85%A2-%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/</guid>
+        
+        <category>Vim</category>
+        
+        
+      </item>
+    
+  </channel>
+</rss>
