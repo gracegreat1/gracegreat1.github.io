@@ -6,17 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <title>“Vim切换Normal模式变慢”问题解决</title>
-  <meta name="description" content="问题">
+  <title>在macOS 10.12 Sierra上安装Tomcat</title>
+  <meta name="description" content="来源：Installing Tomcat on macOS 10.12 Sierra">
   <meta name="author" content="Wei Wang">
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="“Vim切换Normal模式变慢”问题解决">
-  <meta name="twitter:description" content="问题">
+  <meta name="twitter:title" content="在macOS 10.12 Sierra上安装Tomcat">
+  <meta name="twitter:description" content="来源：Installing Tomcat on macOS 10.12 Sierra">
   
   <meta property="og:type" content="article">
-  <meta property="og:title" content="“Vim切换Normal模式变慢”问题解决">
-  <meta property="og:description" content="问题">
+  <meta property="og:title" content="在macOS 10.12 Sierra上安装Tomcat">
+  <meta property="og:description" content="来源：Installing Tomcat on macOS 10.12 Sierra">
   
   <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
   <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="/css/main.css">
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
-  <link rel="canonical" href="http://localhost:4000/2017/11/Vim%E5%88%87%E6%8D%A2Normal%E6%A8%A1%E5%BC%8F%E5%8F%98%E6%85%A2-%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/">
+  <link rel="canonical" href="http://localhost:4000/2017/11/%E5%9C%A8macOS-10.12-Sierra-%E4%B8%8A%E5%AE%89%E8%A3%85-Tomcat/">
   <link rel="alternate" type="application/rss+xml" title="Joker's" href="http://localhost:4000/feed.xml">
   
   <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
@@ -124,28 +124,51 @@
             <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
   <header class="post-header">
     <div class="post-meta">
-      <time datetime="2017-11-14 22:02:11 +0800" itemprop="datePublished" class="post-meta__date date">2017-11-14</time> &#8226; <span class="post-meta__tags tags">Vim</span>
+      <time datetime="2017-11-15 19:44:11 +0800" itemprop="datePublished" class="post-meta__date date">2017-11-15</time> &#8226; <span class="post-meta__tags tags">Tomcat</span>
     </div>
-    <h1 class="post-title">“Vim切换Normal模式变慢”问题解决</h1>
+    <h1 class="post-title">在macOS 10.12 Sierra上安装Tomcat</h1>
   </header>
 
   <section class="post">
-    <h4 id="问题">问题</h4>
+    <p>来源：<a href="https://wolfpaulus.com/mac/tomcat/">Installing Tomcat on macOS 10.12 Sierra</a></p>
 
-<p>准备把 Vim 用起来，今天在装 YouCompleteMe 插件。插件还没装好，反倒遇到了其他的问题：Vim 由 Insert 模式切换为 Normal 模式时，产生了明显的延迟感。急忙去 Google 和 Baidu 查询解决方法，结果半天都没搜出几个结果。</p>
+<p>今天在 mac 上装 Tomcat，遇到了一点问题。就找了一篇适合 Sierra 的教程，简单翻译下，供大家参考。如有侵权，请告知删除。</p>
 
-<h4 id="解决">解决</h4>
-<p>最后把关键词改为英文搜索，才得救！
-在 <code class="highlighter-rouge">.vimrc</code> 文件中增加一行配置如下：</p>
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">set </span><span class="nv">timeoutlen</span><span class="o">=</span>1000 <span class="nv">ttimeoutlen</span><span class="o">=</span>0
+<h4 id="准备条件java">准备条件：Java</h4>
+<p>首先装好 JDK，下载地址：<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Java SE - Downloads</a></p>
+
+<p>这里 JDK 安装包是 dmg 格式，很容易安装。随后打开终端，输入：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>java -version
 </code></pre>
 </div>
+<p>会出现下面的内容：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>java version "1.8.0_152-ea
+Java(TM) SE Runtime Environment (build 1.8.0_152-ea-b05)
+Java HotSpot(TM) 64-Bit Server VM (build 25.152-b05, mixed mode)
+</code></pre>
+</div>
+<p>Tomcat 9.x 需要 Java 8 或者更新的版本。</p>
 
-<p>参考资料：</p>
-<ul>
-  <li><a href="https://www.johnhawthorn.com/2012/09/vi-escape-delays/">Eliminating delays on ESC in vim and zsh</a></li>
-  <li><a href="https://github.com/vim-airline/vim-airline/issues/124">Delay when switching insert mode to normal mode</a></li>
-</ul>
+<h4 id="安装-tomcat">安装 Tomcat</h4>
+<ol>
+  <li>从<a href="https://tomcat.apache.org/download-90.cgi">这里</a>下载 apache-tomcat-9.0.1 (beta) 核心模块的二进制发行版。在二进制发行版（Binary Distributions)／<strong>core</strong> 区域，我选择了 <strong>tar.gz</strong> 格式进行下载（我下载到了<em>下载 - Downlads</em> 文件夹中）。</li>
+  <li>打开／解压该文件，会在你的<em>下载（Downloads）</em>文件夹中产生一个新的文件夹（如，~/Downloads/apache-tomcat-9.0.1）。</li>
+  <li>打开终端，把该解压后的文件夹移动到 /usr/local 路径下。
+  <code class="highlighter-rouge">sudo mkdir -p /usr/local</code>
+  <code class="highlighter-rouge">sudo mv ~/Downloads/apache-tomat-9.0.1 /usr/local</code></li>
+  <li>为了能使以后更新的版本方便地替换该版本，我们需要在用到 Tomcat 的地方创建一个软链接（首先要删除你之前安装过的旧的链接）
+  <code class="highlighter-rouge">sudo rm -f /Library/Tomcat</code>
+  <code class="highlighter-rouge">sudo ln -s /usr/local/apache-tomcat-9.0.1 /Library/Tomcat</code></li>
+  <li>更换 /Library/Tomcat 目录的所有者：
+  <code class="highlighter-rouge">sudo chown -R &lt;your_username&gt; /Library/Tomcat</code></li>
+  <li>把所有的脚本变为可执行的：
+  <code class="highlighter-rouge">sudo chmod +x /Library/Tomcat/bin/*.sh</code></li>
+</ol>
+
+<blockquote>
+  <p>注：鉴于鄙人才疏学浅，有几步我也不知道作用是什么，只是在配置的时候遇到了困难去参考了原博的博客，没有再深究。需要更详细信息的朋友请移步原文。
+希望能对大家有一点点帮助。</p>
+</blockquote>
 
   </section>
 </article>
@@ -153,14 +176,14 @@
 <section class="read-more">
    
    
+   
+   
    <div class="read-more-item">
-       <span class="read-more-item-dim">最近的文章</span>
-       <h2 class="post-list__post-title post-title"><a href="/2017/11/%E5%9C%A8macOS-10.12-Sierra-%E4%B8%8A%E5%AE%89%E8%A3%85-Tomcat/" title="link to 在macOS 10.12 Sierra上安装Tomcat">在macOS 10.12 Sierra上安装Tomcat</a></h2>
-       <p class="excerpt">来源：Installing Tomcat on macOS 10.12 Sierra今天在 mac 上装 Tomcat，遇到了一点问题。就找了一篇适合 Sierra 的教程，简单翻译下，供大家参考。如有侵权，请告知删除。准备条件：Java首先装好 JDK，下载地址：Java SE - Downloads这里 JDK 安装包是 dmg 格式，很容易安装。随后打开终端，输入：java -version会出现下面的内容：java version "1.8.0_152-eaJava(TM) SE ...&hellip;</p>
-       <div class="post-list__meta"><time datetime="2017-11-15 19:44:11 +0800" class="post-list__meta--date date">2017-11-15</time> &#8226; <span class="post-list__meta--tags tags">Tomcat</span><a class="btn-border-small" href=/2017/11/%E5%9C%A8macOS-10.12-Sierra-%E4%B8%8A%E5%AE%89%E8%A3%85-Tomcat/>继续阅读</a></div>
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2017/11/Vim%E5%88%87%E6%8D%A2Normal%E6%A8%A1%E5%BC%8F%E5%8F%98%E6%85%A2-%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/" title="link to “Vim切换Normal模式变慢”问题解决">“Vim切换Normal模式变慢”问题解决</a></h2>
+       <p class="excerpt">问题准备把 Vim 用起来，今天在装 YouCompleteMe 插件。插件还没装好，反倒遇到了其他的问题：Vim 由 Insert 模式切换为 Normal 模式时，产生了明显的延迟感。急忙去 Google 和 Baidu 查询解决方法，结果半天都没搜出几个结果。解决最后把关键词改为英文搜索，才得救！在 .vimrc 文件中增加一行配置如下：set timeoutlen=1000 ttimeoutlen=0参考资料：  Eliminating delays on ESC in vim a...&hellip;</p>
+       <div class="post-list__meta"><time datetime="2017-11-14 22:02:11 +0800" class="post-list__meta--date date">2017-11-14</time> &#8226; <span class="post-list__meta--tags tags">Vim</span><a class="btn-border-small" href=/2017/11/Vim%E5%88%87%E6%8D%A2Normal%E6%A8%A1%E5%BC%8F%E5%8F%98%E6%85%A2-%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/>继续阅读</a></div>
    </div>
-   
-   
    
 </section>
 
@@ -170,8 +193,8 @@
     <script>
     
     var disqus_config = function () {
-        this.page.url = "http://localhost:4000/2017/11/Vim%E5%88%87%E6%8D%A2Normal%E6%A8%A1%E5%BC%8F%E5%8F%98%E6%85%A2-%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/";
-        this.page.identifier = "/2017/11/Vim%E5%88%87%E6%8D%A2Normal%E6%A8%A1%E5%BC%8F%E5%8F%98%E6%85%A2-%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/";
+        this.page.url = "http://localhost:4000/2017/11/%E5%9C%A8macOS-10.12-Sierra-%E4%B8%8A%E5%AE%89%E8%A3%85-Tomcat/";
+        this.page.identifier = "/2017/11/%E5%9C%A8macOS-10.12-Sierra-%E4%B8%8A%E5%AE%89%E8%A3%85-Tomcat/";
     };
 
     var disqus_shortname = 'gracegreat1';

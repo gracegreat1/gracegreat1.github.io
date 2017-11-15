@@ -1,11 +1,12 @@
 ---
 layout: post
-title: 在 macOS 10.12 Sierra 上安装 Tomcat
+title: 在macOS 10.12 Sierra上安装Tomcat
 date: 2017-11-15 20:44:11.000000000 +09:00
 category: DevTools
 tags: Tomcat
 ---
 来源：[Installing Tomcat on macOS 10.12 Sierra](https://wolfpaulus.com/mac/tomcat/)
+
 今天在 mac 上装 Tomcat，遇到了一点问题。就找了一篇适合 Sierra 的教程，简单翻译下，供大家参考。如有侵权，请告知删除。
 
 #### 准备条件：Java
@@ -38,4 +39,4 @@ Tomcat 9.x 需要 Java 8 或者更新的版本。
   `sudo chmod +x /Library/Tomcat/bin/*.sh`
 
 > 注：鉴于鄙人才疏学浅，有几步我也不知道作用是什么，只是在配置的时候遇到了困难去参考了原博的博客，没有再深究。需要更详细信息的朋友请移步原文。
-希望能对大家有一点点用处。
+希望能对大家有一点点帮助。

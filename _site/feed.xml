@@ -5,9 +5,62 @@
     <description>Where I blog abount my way in programming and life both.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 15 Nov 2017 19:27:38 +0800</pubDate>
-    <lastBuildDate>Wed, 15 Nov 2017 19:27:38 +0800</lastBuildDate>
+    <pubDate>Wed, 15 Nov 2017 20:48:56 +0800</pubDate>
+    <lastBuildDate>Wed, 15 Nov 2017 20:48:56 +0800</lastBuildDate>
     <generator>Jekyll v3.4.0</generator>
+    
+      <item>
+        <title>在macOS 10.12 Sierra上安装Tomcat</title>
+        <description>&lt;p&gt;来源：&lt;a href=&quot;https://wolfpaulus.com/mac/tomcat/&quot;&gt;Installing Tomcat on macOS 10.12 Sierra&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;今天在 mac 上装 Tomcat，遇到了一点问题。就找了一篇适合 Sierra 的教程，简单翻译下，供大家参考。如有侵权，请告知删除。&lt;/p&gt;
+
+&lt;h4 id=&quot;准备条件java&quot;&gt;准备条件：Java&lt;/h4&gt;
+&lt;p&gt;首先装好 JDK，下载地址：&lt;a href=&quot;http://www.oracle.com/technetwork/java/javase/downloads/index.html&quot;&gt;Java SE - Downloads&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;这里 JDK 安装包是 dmg 格式，很容易安装。随后打开终端，输入：&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;java -version
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;会出现下面的内容：&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;java version &quot;1.8.0_152-ea
+Java(TM) SE Runtime Environment (build 1.8.0_152-ea-b05)
+Java HotSpot(TM) 64-Bit Server VM (build 25.152-b05, mixed mode)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Tomcat 9.x 需要 Java 8 或者更新的版本。&lt;/p&gt;
+
+&lt;h4 id=&quot;安装-tomcat&quot;&gt;安装 Tomcat&lt;/h4&gt;
+&lt;ol&gt;
+  &lt;li&gt;从&lt;a href=&quot;https://tomcat.apache.org/download-90.cgi&quot;&gt;这里&lt;/a&gt;下载 apache-tomcat-9.0.1 (beta) 核心模块的二进制发行版。在二进制发行版（Binary Distributions)／&lt;strong&gt;core&lt;/strong&gt; 区域，我选择了 &lt;strong&gt;tar.gz&lt;/strong&gt; 格式进行下载（我下载到了&lt;em&gt;下载 - Downlads&lt;/em&gt; 文件夹中）。&lt;/li&gt;
+  &lt;li&gt;打开／解压该文件，会在你的&lt;em&gt;下载（Downloads）&lt;/em&gt;文件夹中产生一个新的文件夹（如，~/Downloads/apache-tomcat-9.0.1）。&lt;/li&gt;
+  &lt;li&gt;打开终端，把该解压后的文件夹移动到 /usr/local 路径下。
+  &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo mkdir -p /usr/local&lt;/code&gt;
+  &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo mv ~/Downloads/apache-tomat-9.0.1 /usr/local&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;为了能使以后更新的版本方便地替换该版本，我们需要在用到 Tomcat 的地方创建一个软链接（首先要删除你之前安装过的旧的链接）
+  &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo rm -f /Library/Tomcat&lt;/code&gt;
+  &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo ln -s /usr/local/apache-tomcat-9.0.1 /Library/Tomcat&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;更换 /Library/Tomcat 目录的所有者：
+  &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo chown -R &amp;lt;your_username&amp;gt; /Library/Tomcat&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;把所有的脚本变为可执行的：
+  &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo chmod +x /Library/Tomcat/bin/*.sh&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;注：鉴于鄙人才疏学浅，有几步我也不知道作用是什么，只是在配置的时候遇到了困难去参考了原博的博客，没有再深究。需要更详细信息的朋友请移步原文。
+希望能对大家有一点点帮助。&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+        <pubDate>Wed, 15 Nov 2017 19:44:11 +0800</pubDate>
+        <link>http://localhost:4000/2017/11/%E5%9C%A8macOS-10.12-Sierra-%E4%B8%8A%E5%AE%89%E8%A3%85-Tomcat/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/11/%E5%9C%A8macOS-10.12-Sierra-%E4%B8%8A%E5%AE%89%E8%A3%85-Tomcat/</guid>
+        
+        <category>Tomcat</category>
+        
+        
+        <category>DevTools</category>
+        
+      </item>
     
       <item>
         <title>“Vim切换Normal模式变慢”问题解决</title>
