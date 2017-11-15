@@ -153,15 +153,17 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.152-b05, mixed mode)
 <ol>
   <li>从<a href="https://tomcat.apache.org/download-90.cgi">这里</a>下载 apache-tomcat-9.0.1 (beta) 核心模块的二进制发行版。在二进制发行版（Binary Distributions)／<strong>core</strong> 区域，我选择了 <strong>tar.gz</strong> 格式进行下载（我下载到了<em>下载 - Downlads</em> 文件夹中）。</li>
   <li>打开／解压该文件，会在你的<em>下载（Downloads）</em>文件夹中产生一个新的文件夹（如，~/Downloads/apache-tomcat-9.0.1）。</li>
-  <li>打开终端，把该解压后的文件夹移动到 /usr/local 路径下。
-  <code class="highlighter-rouge">sudo mkdir -p /usr/local</code>
-  <code class="highlighter-rouge">sudo mv ~/Downloads/apache-tomat-9.0.1 /usr/local</code></li>
-  <li>为了能使以后更新的版本方便地替换该版本，我们需要在用到 Tomcat 的地方创建一个软链接（首先要删除你之前安装过的旧的链接）
-  <code class="highlighter-rouge">sudo rm -f /Library/Tomcat</code>
+  <li>
+    <p>打开终端，把该解压后的文件夹移动到 /usr/local 路径下。<br />
+  <code class="highlighter-rouge">sudo mkdir -p /usr/local</code><br />
+  <code class="highlighter-rouge">sudo mv ~/Downloads/apache-tomat-9.0.1 /usr/local</code></p>
+  </li>
+  <li>为了能使以后更新的版本方便地替换该版本，我们需要在用到 Tomcat 的地方创建一个软链接（首先要删除你之前安装过的旧的链接）<br />
+  <code class="highlighter-rouge">sudo rm -f /Library/Tomcat</code><br />
   <code class="highlighter-rouge">sudo ln -s /usr/local/apache-tomcat-9.0.1 /Library/Tomcat</code></li>
-  <li>更换 /Library/Tomcat 目录的所有者：
+  <li>更换 /Library/Tomcat 目录的所有者：<br />
   <code class="highlighter-rouge">sudo chown -R &lt;your_username&gt; /Library/Tomcat</code></li>
-  <li>把所有的脚本变为可执行的：
+  <li>把所有的脚本变为可执行的：<br />
   <code class="highlighter-rouge">sudo chmod +x /Library/Tomcat/bin/*.sh</code></li>
 </ol>
 

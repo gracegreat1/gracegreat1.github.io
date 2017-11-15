@@ -5,8 +5,8 @@
     <description>Where I blog abount my way in programming and life both.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 15 Nov 2017 20:48:56 +0800</pubDate>
-    <lastBuildDate>Wed, 15 Nov 2017 20:48:56 +0800</lastBuildDate>
+    <pubDate>Wed, 15 Nov 2017 20:52:12 +0800</pubDate>
+    <lastBuildDate>Wed, 15 Nov 2017 20:52:12 +0800</lastBuildDate>
     <generator>Jekyll v3.4.0</generator>
     
       <item>
@@ -34,15 +34,17 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.152-b05, mixed mode)
 &lt;ol&gt;
   &lt;li&gt;从&lt;a href=&quot;https://tomcat.apache.org/download-90.cgi&quot;&gt;这里&lt;/a&gt;下载 apache-tomcat-9.0.1 (beta) 核心模块的二进制发行版。在二进制发行版（Binary Distributions)／&lt;strong&gt;core&lt;/strong&gt; 区域，我选择了 &lt;strong&gt;tar.gz&lt;/strong&gt; 格式进行下载（我下载到了&lt;em&gt;下载 - Downlads&lt;/em&gt; 文件夹中）。&lt;/li&gt;
   &lt;li&gt;打开／解压该文件，会在你的&lt;em&gt;下载（Downloads）&lt;/em&gt;文件夹中产生一个新的文件夹（如，~/Downloads/apache-tomcat-9.0.1）。&lt;/li&gt;
-  &lt;li&gt;打开终端，把该解压后的文件夹移动到 /usr/local 路径下。
-  &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo mkdir -p /usr/local&lt;/code&gt;
-  &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo mv ~/Downloads/apache-tomat-9.0.1 /usr/local&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;为了能使以后更新的版本方便地替换该版本，我们需要在用到 Tomcat 的地方创建一个软链接（首先要删除你之前安装过的旧的链接）
-  &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo rm -f /Library/Tomcat&lt;/code&gt;
+  &lt;li&gt;
+    &lt;p&gt;打开终端，把该解压后的文件夹移动到 /usr/local 路径下。&lt;br /&gt;
+  &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo mkdir -p /usr/local&lt;/code&gt;&lt;br /&gt;
+  &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo mv ~/Downloads/apache-tomat-9.0.1 /usr/local&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;为了能使以后更新的版本方便地替换该版本，我们需要在用到 Tomcat 的地方创建一个软链接（首先要删除你之前安装过的旧的链接）&lt;br /&gt;
+  &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo rm -f /Library/Tomcat&lt;/code&gt;&lt;br /&gt;
   &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo ln -s /usr/local/apache-tomcat-9.0.1 /Library/Tomcat&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;更换 /Library/Tomcat 目录的所有者：
+  &lt;li&gt;更换 /Library/Tomcat 目录的所有者：&lt;br /&gt;
   &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo chown -R &amp;lt;your_username&amp;gt; /Library/Tomcat&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;把所有的脚本变为可执行的：
+  &lt;li&gt;把所有的脚本变为可执行的：&lt;br /&gt;
   &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo chmod +x /Library/Tomcat/bin/*.sh&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
