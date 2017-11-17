@@ -5,8 +5,8 @@
     <description>Where I blog abount my way in programming and life both.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 17 Nov 2017 15:39:32 +0800</pubDate>
-    <lastBuildDate>Fri, 17 Nov 2017 15:39:32 +0800</lastBuildDate>
+    <pubDate>Fri, 17 Nov 2017 15:57:07 +0800</pubDate>
+    <lastBuildDate>Fri, 17 Nov 2017 15:57:07 +0800</lastBuildDate>
     <generator>Jekyll v3.4.0</generator>
     
       <item>
@@ -15,12 +15,18 @@
 下面，我们来看一下具体步骤。&lt;/p&gt;
 
 &lt;h4 id=&quot;step-1进入-google-的-webmaster-工具管理页面&quot;&gt;Step 1：进入 Google 的 WebMaster 工具管理页面&lt;/h4&gt;
-&lt;p&gt;&lt;a href=&quot;https://www.google.com/webmasters/tools/home&quot;&gt;Search Control - 首页&lt;/a&gt;
-点击右上角&lt;strong&gt;添加属性&lt;/strong&gt;。在这里，我们把需要收录的页面 url 填入。&lt;br /&gt;
-&lt;img src=&quot;http://ozjtrx3vo.bkt.clouddn.com/2017-11-17-1-2.jpeg&quot; alt=&quot;1&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.google.com/webmasters/tools/home&quot;&gt;Search Control - 首页&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;点击&lt;strong&gt;添加&lt;/strong&gt;后，跳到如下页面：&lt;br /&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;点击右上角&lt;strong&gt;添加属性&lt;/strong&gt;。在这里，我们把需要收录的页面 url 填入。&lt;br /&gt;
+&lt;img src=&quot;http://ozjtrx3vo.bkt.clouddn.com/2017-11-17-1-2.jpeg&quot; alt=&quot;1&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;点击&lt;strong&gt;添加&lt;/strong&gt;后，跳到如下页面：&lt;br /&gt;
 &lt;img src=&quot;http://ozjtrx3vo.bkt.clouddn.com/2017-11-17-2-1.jpeg&quot; alt=&quot;2&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h4 id=&quot;step-2进入-namecheapcom添加-txt-记录&quot;&gt;Step 2：进入 Namecheap.com，添加 TXT 记录。&lt;/h4&gt;
 &lt;ul&gt;
@@ -39,7 +45,10 @@
 &lt;/ul&gt;
 
 &lt;h4 id=&quot;step-3在-google-search-console-页面上点验证&quot;&gt;Step 3：在 Google Search Console 页面上点&lt;strong&gt;验证&lt;/strong&gt;。&lt;/h4&gt;
-&lt;p&gt;&lt;img src=&quot;http:////ozjtrx3vo.bkt.clouddn.com/2017-11-17-6-1.jpeg&quot; alt=&quot;6&quot; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;我们会看到如下页面：
+&lt;img src=&quot;http:////ozjtrx3vo.bkt.clouddn.com/2017-11-17-6-1.jpeg&quot; alt=&quot;6&quot; /&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h4 id=&quot;step-4获得-sitemap-文件&quot;&gt;Step 4：获得 sitemap 文件&lt;/h4&gt;
 &lt;ul&gt;
@@ -57,14 +66,18 @@
 &lt;/ul&gt;
 
 &lt;h4 id=&quot;step-4在-google-search-console-中添加你的-sitemap-url&quot;&gt;Step 4：在 Google Search console 中添加你的 sitemap URL。&lt;/h4&gt;
-&lt;p&gt;打开 Step 1 中的 &lt;a href=&quot;https://www.google.com/webmasters/tools/home&quot;&gt;Google Search console&lt;/a&gt; 网站，添加你的 sitemap URL。在这里，我的 sitemap URL 为：http://gracegreat1.me/sitemap.url。（因为上一步中已经将该文件放入网站的根目录）
-&lt;img src=&quot;http:////ozjtrx3vo.bkt.clouddn.com/2017-11-17-9-1.jpeg&quot; alt=&quot;9&quot; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;打开 Step 1 中的 &lt;a href=&quot;https://www.google.com/webmasters/tools/home&quot;&gt;Google Search console&lt;/a&gt; 网站，添加你的 sitemap URL。在这里，我的 sitemap URL 为：&lt;code class=&quot;highlighter-rouge&quot;&gt;http://gracegreat1.me/sitemap.url&lt;/code&gt;。（因为上一步中已经将该文件放入网站的根目录）
+&lt;img src=&quot;http:////ozjtrx3vo.bkt.clouddn.com/2017-11-17-9-1.jpeg&quot; alt=&quot;9&quot; /&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h4 id=&quot;参考链接&quot;&gt;参考链接&lt;/h4&gt;
-&lt;p&gt;&lt;a href=&quot;https://support.google.com/a/answer/6142985?hl=zh-Hans&quot;&gt;Namecheap：验证您的域名&lt;/a&gt;
-&lt;a href=&quot;https://support.google.com/webmasters/answer/156184?hl=zh-Hans&amp;amp;ref_topic=4581190&quot;&gt;了解站点地图&lt;/a&gt;
-&lt;a href=&quot;https://www.ezlippi.com/blog/2015/03/github-pages-blog.html&quot;&gt;利用github-pages建立个人博客&lt;/a&gt;
-&lt;a href=&quot;https://jin-yang.github.io/post/jekyll.html&quot;&gt;使用 Jekyll 搭建 Blog&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://support.google.com/a/answer/6142985?hl=zh-Hans&quot;&gt;Namecheap：验证您的域名&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://support.google.com/webmasters/answer/156184?hl=zh-Hans&amp;amp;ref_topic=4581190&quot;&gt;了解站点地图&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.ezlippi.com/blog/2015/03/github-pages-blog.html&quot;&gt;利用github-pages建立个人博客&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://jin-yang.github.io/post/jekyll.html&quot;&gt;使用 Jekyll 搭建 Blog&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
 </description>
         <pubDate>Fri, 17 Nov 2017 14:40:11 +0800</pubDate>
