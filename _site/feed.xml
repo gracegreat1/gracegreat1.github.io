@@ -5,8 +5,8 @@
     <description>Where I blog abount my way in programming and life both.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 17 Nov 2017 16:56:34 +0800</pubDate>
-    <lastBuildDate>Fri, 17 Nov 2017 16:56:34 +0800</lastBuildDate>
+    <pubDate>Fri, 17 Nov 2017 18:11:14 +0800</pubDate>
+    <lastBuildDate>Fri, 17 Nov 2017 18:11:14 +0800</lastBuildDate>
     <generator>Jekyll v3.4.0</generator>
     
       <item>
@@ -17,9 +17,27 @@
 
 &lt;p&gt;另外就是，发的新博客里面是带有图片的，这涉及到下午的另一个操作：MWeb + 七牛云的图床。发现 MWeb 确实是写博客的不二之选，配置好了图床之后，再也不怕插图片麻烦了：）&lt;/p&gt;
 
-&lt;p&gt;还有，今天发现朋友们的算法薪资都好高，有点不甘落后吧。现在好好蓄力，年后需要再投一波。&lt;/p&gt;
+&lt;p&gt;还有，今天发现朋友们的算法薪资都好高，有点不甘落后吧。现在好好蓄力，年后需要再投一波。
+（发现自己的计划总是太糙，补充几个蓄力的点如下：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;基础知识：
+    &lt;ul&gt;
+      &lt;li&gt;《计算机网络自顶向下方法》，写得很好的一本书，举例很多很形象，目前是刚看到运输层，要看完。&lt;/li&gt;
+      &lt;li&gt;《深入分析Java Web技术内幕》，觉得很适合我这种初学者看，内容涵盖 Java Web 的各个方面，目前刚开始看，在负载均衡的地方理解遇到一点小问题，以及 DNS 部分需要结合网络来看。需要看完。&lt;/li&gt;
+      &lt;li&gt;《深入理解计算机系统》，可选。要结合聚聚的博客来学习。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;项目：
+    &lt;ul&gt;
+      &lt;li&gt;目前在结合另一位聚聚的博客开始做 Java Web 的入门级项目。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;总之，路还很长，加油啦！&lt;/p&gt;
+
+&lt;p&gt;此外，今天关于面试选择的问题，收到了朋友的毒鸡汤一枚，扎心了：
+&lt;img src=&quot;http://ozjtrx3vo.bkt.clouddn.com/2017-11-17-毒鸡汤.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 </description>
         <pubDate>Fri, 17 Nov 2017 15:50:11 +0800</pubDate>
