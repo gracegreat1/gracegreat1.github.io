@@ -5,8 +5,8 @@
     <description>Where I blog abount my way in programming and life both.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 17 Nov 2017 15:57:07 +0800</pubDate>
-    <lastBuildDate>Fri, 17 Nov 2017 15:57:07 +0800</lastBuildDate>
+    <pubDate>Fri, 17 Nov 2017 16:24:13 +0800</pubDate>
+    <lastBuildDate>Fri, 17 Nov 2017 16:24:13 +0800</lastBuildDate>
     <generator>Jekyll v3.4.0</generator>
     
       <item>
@@ -15,11 +15,9 @@
 下面，我们来看一下具体步骤。&lt;/p&gt;
 
 &lt;h4 id=&quot;step-1进入-google-的-webmaster-工具管理页面&quot;&gt;Step 1：进入 Google 的 WebMaster 工具管理页面&lt;/h4&gt;
-&lt;p&gt;&lt;a href=&quot;https://www.google.com/webmasters/tools/home&quot;&gt;Search Control - 首页&lt;/a&gt;&lt;/p&gt;
-
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;点击右上角&lt;strong&gt;添加属性&lt;/strong&gt;。在这里，我们把需要收录的页面 url 填入。&lt;br /&gt;
+    &lt;p&gt;进入&lt;a href=&quot;https://www.google.com/webmasters/tools/home&quot;&gt;Search Control - 首页&lt;/a&gt;页面，点击右上角&lt;strong&gt;添加属性&lt;/strong&gt;。在这里，我们把需要收录的页面 url 填入。&lt;br /&gt;
 &lt;img src=&quot;http://ozjtrx3vo.bkt.clouddn.com/2017-11-17-1-2.jpeg&quot; alt=&quot;1&quot; /&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
@@ -132,6 +130,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.152-b05, mixed mode)
   &lt;p&gt;注：鉴于鄙人才疏学浅，有几步我也不知道作用是什么，只是在配置的时候遇到了困难去参考了原博的博客，没有再深究。需要更详细信息的朋友请移步原文。
 希望能对大家有一点点帮助。&lt;/p&gt;
 &lt;/blockquote&gt;
+
 </description>
         <pubDate>Wed, 15 Nov 2017 19:44:11 +0800</pubDate>
         <link>http://localhost:4000/2017/11/%E5%9C%A8macOS-10.12-Sierra-%E4%B8%8A%E5%AE%89%E8%A3%85-Tomcat/</link>

@@ -8,9 +8,7 @@ tags: Jekyll
 下面，我们来看一下具体步骤。
 
 #### Step 1：进入 Google 的 WebMaster 工具管理页面
-[Search Control - 首页](https://www.google.com/webmasters/tools/home)
-
-- 点击右上角**添加属性**。在这里，我们把需要收录的页面 url 填入。  
+- 进入[Search Control - 首页](https://www.google.com/webmasters/tools/home)页面，点击右上角**添加属性**。在这里，我们把需要收录的页面 url 填入。  
 ![1](http://ozjtrx3vo.bkt.clouddn.com/2017-11-17-1-2.jpeg)
 
 
