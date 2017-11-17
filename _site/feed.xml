@@ -5,9 +5,76 @@
     <description>Where I blog abount my way in programming and life both.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 15 Nov 2017 20:52:12 +0800</pubDate>
-    <lastBuildDate>Wed, 15 Nov 2017 20:52:12 +0800</lastBuildDate>
+    <pubDate>Fri, 17 Nov 2017 15:39:32 +0800</pubDate>
+    <lastBuildDate>Fri, 17 Nov 2017 15:39:32 +0800</lastBuildDate>
     <generator>Jekyll v3.4.0</generator>
+    
+      <item>
+        <title>为自己的博客添加搜索引擎（Google）收录（以 Namecheap 为例）</title>
+        <description>&lt;p&gt;博客搭好了，怎样才能让别人通过 Google 搜索到自己的博客呢？
+下面，我们来看一下具体步骤。&lt;/p&gt;
+
+&lt;h4 id=&quot;step-1进入-google-的-webmaster-工具管理页面&quot;&gt;Step 1：进入 Google 的 WebMaster 工具管理页面&lt;/h4&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.google.com/webmasters/tools/home&quot;&gt;Search Control - 首页&lt;/a&gt;
+点击右上角&lt;strong&gt;添加属性&lt;/strong&gt;。在这里，我们把需要收录的页面 url 填入。&lt;br /&gt;
+&lt;img src=&quot;http://ozjtrx3vo.bkt.clouddn.com/2017-11-17-1-2.jpeg&quot; alt=&quot;1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;点击&lt;strong&gt;添加&lt;/strong&gt;后，跳到如下页面：&lt;br /&gt;
+&lt;img src=&quot;http://ozjtrx3vo.bkt.clouddn.com/2017-11-17-2-1.jpeg&quot; alt=&quot;2&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;step-2进入-namecheapcom添加-txt-记录&quot;&gt;Step 2：进入 Namecheap.com，添加 TXT 记录。&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;登陆之后，点 &lt;strong&gt;MANAGE&lt;/strong&gt;。
+&lt;img src=&quot;http://ozjtrx3vo.bkt.clouddn.com/2017-11-17-3-1.jpeg&quot; alt=&quot;3&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;进入管理页面后，点击右边的 &lt;strong&gt;Advanced DNS&lt;/strong&gt;。然后点击下方 &lt;strong&gt;ADD NEW RECORD&lt;/strong&gt;。
+&lt;img src=&quot;http:////ozjtrx3vo.bkt.clouddn.com/2017-11-17-4-1.jpeg&quot; alt=&quot;4&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;添加新的记录，类型选 &lt;strong&gt;TXT Record&lt;/strong&gt;，Host 填 &lt;strong&gt;@&lt;/strong&gt;，Value 填入 Step 1 中的字符串。
+&lt;img src=&quot;http:////ozjtrx3vo.bkt.clouddn.com/2017-11-17-5-1.jpeg&quot; alt=&quot;5&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;step-3在-google-search-console-页面上点验证&quot;&gt;Step 3：在 Google Search Console 页面上点&lt;strong&gt;验证&lt;/strong&gt;。&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;http:////ozjtrx3vo.bkt.clouddn.com/2017-11-17-6-1.jpeg&quot; alt=&quot;6&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;step-4获得-sitemap-文件&quot;&gt;Step 4：获得 sitemap 文件&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;进入 &lt;a href=&quot;https://www.xml-sitemaps.com/&quot;&gt;XML-Sitemaps.com Sitemap Generator&lt;/a&gt; 页面，输入博客地址，点击 &lt;strong&gt;start&lt;/strong&gt;。
+&lt;img src=&quot;http://ozjtrx3vo.bkt.clouddn.com/2017-11-17-7-2.jpeg&quot; alt=&quot;7&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;等待搜索完成，点击 &lt;strong&gt;VIEW SITEMAP DETAILS&lt;/strong&gt;。
+&lt;img src=&quot;http://ozjtrx3vo.bkt.clouddn.com/2017-11-17-8-1.jpeg&quot; alt=&quot;8&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;下载 SITEMAP 文件并将其放入网站的根目录。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;step-4在-google-search-console-中添加你的-sitemap-url&quot;&gt;Step 4：在 Google Search console 中添加你的 sitemap URL。&lt;/h4&gt;
+&lt;p&gt;打开 Step 1 中的 &lt;a href=&quot;https://www.google.com/webmasters/tools/home&quot;&gt;Google Search console&lt;/a&gt; 网站，添加你的 sitemap URL。在这里，我的 sitemap URL 为：http://gracegreat1.me/sitemap.url。（因为上一步中已经将该文件放入网站的根目录）
+&lt;img src=&quot;http:////ozjtrx3vo.bkt.clouddn.com/2017-11-17-9-1.jpeg&quot; alt=&quot;9&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;参考链接&quot;&gt;参考链接&lt;/h4&gt;
+&lt;p&gt;&lt;a href=&quot;https://support.google.com/a/answer/6142985?hl=zh-Hans&quot;&gt;Namecheap：验证您的域名&lt;/a&gt;
+&lt;a href=&quot;https://support.google.com/webmasters/answer/156184?hl=zh-Hans&amp;amp;ref_topic=4581190&quot;&gt;了解站点地图&lt;/a&gt;
+&lt;a href=&quot;https://www.ezlippi.com/blog/2015/03/github-pages-blog.html&quot;&gt;利用github-pages建立个人博客&lt;/a&gt;
+&lt;a href=&quot;https://jin-yang.github.io/post/jekyll.html&quot;&gt;使用 Jekyll 搭建 Blog&lt;/a&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 17 Nov 2017 14:40:11 +0800</pubDate>
+        <link>http://localhost:4000/2017/11/%E4%B8%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E-Google-%E6%94%B6%E5%BD%95-%E4%BB%A5-Namecheap-%E4%B8%BA%E4%BE%8B/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/11/%E4%B8%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E-Google-%E6%94%B6%E5%BD%95-%E4%BB%A5-Namecheap-%E4%B8%BA%E4%BE%8B/</guid>
+        
+        <category>Jekyll</category>
+        
+        
+      </item>
     
       <item>
         <title>在macOS 10.12 Sierra上安装Tomcat</title>

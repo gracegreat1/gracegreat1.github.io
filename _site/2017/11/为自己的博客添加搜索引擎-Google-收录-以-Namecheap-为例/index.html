@@ -6,17 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <title>“Vim切换Normal模式变慢”问题解决</title>
-  <meta name="description" content="问题">
+  <title>为自己的博客添加搜索引擎（Google）收录（以 Namecheap 为例）</title>
+  <meta name="description" content="博客搭好了，怎样才能让别人通过 Google 搜索到自己的博客呢？下面，我们来看一下具体步骤。">
   <meta name="author" content="Wei Wang">
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="“Vim切换Normal模式变慢”问题解决">
-  <meta name="twitter:description" content="问题">
+  <meta name="twitter:title" content="为自己的博客添加搜索引擎（Google）收录（以 Namecheap 为例）">
+  <meta name="twitter:description" content="博客搭好了，怎样才能让别人通过 Google 搜索到自己的博客呢？下面，我们来看一下具体步骤。">
   
   <meta property="og:type" content="article">
-  <meta property="og:title" content="“Vim切换Normal模式变慢”问题解决">
-  <meta property="og:description" content="问题">
+  <meta property="og:title" content="为自己的博客添加搜索引擎（Google）收录（以 Namecheap 为例）">
+  <meta property="og:description" content="博客搭好了，怎样才能让别人通过 Google 搜索到自己的博客呢？下面，我们来看一下具体步骤。">
   
   <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
   <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="/css/main.css">
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
-  <link rel="canonical" href="http://localhost:4000/2017/11/Vim%E5%88%87%E6%8D%A2Normal%E6%A8%A1%E5%BC%8F%E5%8F%98%E6%85%A2-%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/">
+  <link rel="canonical" href="http://localhost:4000/2017/11/%E4%B8%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E-Google-%E6%94%B6%E5%BD%95-%E4%BB%A5-Namecheap-%E4%B8%BA%E4%BE%8B/">
   <link rel="alternate" type="application/rss+xml" title="Joker's" href="http://localhost:4000/feed.xml">
   
   <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
@@ -124,28 +124,67 @@
             <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
   <header class="post-header">
     <div class="post-meta">
-      <time datetime="2017-11-14 22:02:11 +0800" itemprop="datePublished" class="post-meta__date date">2017-11-14</time> &#8226; <span class="post-meta__tags tags">Vim</span>
+      <time datetime="2017-11-17 14:40:11 +0800" itemprop="datePublished" class="post-meta__date date">2017-11-17</time> &#8226; <span class="post-meta__tags tags">Jekyll</span>
     </div>
-    <h1 class="post-title">“Vim切换Normal模式变慢”问题解决</h1>
+    <h1 class="post-title">为自己的博客添加搜索引擎（Google）收录（以 Namecheap 为例）</h1>
   </header>
 
   <section class="post">
-    <h4 id="问题">问题</h4>
+    <p>博客搭好了，怎样才能让别人通过 Google 搜索到自己的博客呢？
+下面，我们来看一下具体步骤。</p>
 
-<p>准备把 Vim 用起来，今天在装 YouCompleteMe 插件。插件还没装好，反倒遇到了其他的问题：Vim 由 Insert 模式切换为 Normal 模式时，产生了明显的延迟感。急忙去 Google 和 Baidu 查询解决方法，结果半天都没搜出几个结果。</p>
+<h4 id="step-1进入-google-的-webmaster-工具管理页面">Step 1：进入 Google 的 WebMaster 工具管理页面</h4>
+<p><a href="https://www.google.com/webmasters/tools/home">Search Control - 首页</a>
+点击右上角<strong>添加属性</strong>。在这里，我们把需要收录的页面 url 填入。<br />
+<img src="http://ozjtrx3vo.bkt.clouddn.com/2017-11-17-1-2.jpeg" alt="1" /></p>
 
-<h4 id="解决">解决</h4>
-<p>最后把关键词改为英文搜索，才得救！
-在 <code class="highlighter-rouge">.vimrc</code> 文件中增加一行配置如下：</p>
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">set </span><span class="nv">timeoutlen</span><span class="o">=</span>1000 <span class="nv">ttimeoutlen</span><span class="o">=</span>0
-</code></pre>
-</div>
+<p>点击<strong>添加</strong>后，跳到如下页面：<br />
+<img src="http://ozjtrx3vo.bkt.clouddn.com/2017-11-17-2-1.jpeg" alt="2" /></p>
 
-<p>参考资料：</p>
+<h4 id="step-2进入-namecheapcom添加-txt-记录">Step 2：进入 Namecheap.com，添加 TXT 记录。</h4>
 <ul>
-  <li><a href="https://www.johnhawthorn.com/2012/09/vi-escape-delays/">Eliminating delays on ESC in vim and zsh</a></li>
-  <li><a href="https://github.com/vim-airline/vim-airline/issues/124">Delay when switching insert mode to normal mode</a></li>
+  <li>
+    <p>登陆之后，点 <strong>MANAGE</strong>。
+<img src="http://ozjtrx3vo.bkt.clouddn.com/2017-11-17-3-1.jpeg" alt="3" /></p>
+  </li>
+  <li>
+    <p>进入管理页面后，点击右边的 <strong>Advanced DNS</strong>。然后点击下方 <strong>ADD NEW RECORD</strong>。
+<img src="http:////ozjtrx3vo.bkt.clouddn.com/2017-11-17-4-1.jpeg" alt="4" /></p>
+  </li>
+  <li>
+    <p>添加新的记录，类型选 <strong>TXT Record</strong>，Host 填 <strong>@</strong>，Value 填入 Step 1 中的字符串。
+<img src="http:////ozjtrx3vo.bkt.clouddn.com/2017-11-17-5-1.jpeg" alt="5" /></p>
+  </li>
 </ul>
+
+<h4 id="step-3在-google-search-console-页面上点验证">Step 3：在 Google Search Console 页面上点<strong>验证</strong>。</h4>
+<p><img src="http:////ozjtrx3vo.bkt.clouddn.com/2017-11-17-6-1.jpeg" alt="6" /></p>
+
+<h4 id="step-4获得-sitemap-文件">Step 4：获得 sitemap 文件</h4>
+<ul>
+  <li>
+    <p>进入 <a href="https://www.xml-sitemaps.com/">XML-Sitemaps.com Sitemap Generator</a> 页面，输入博客地址，点击 <strong>start</strong>。
+<img src="http://ozjtrx3vo.bkt.clouddn.com/2017-11-17-7-2.jpeg" alt="7" /></p>
+  </li>
+  <li>
+    <p>等待搜索完成，点击 <strong>VIEW SITEMAP DETAILS</strong>。
+<img src="http://ozjtrx3vo.bkt.clouddn.com/2017-11-17-8-1.jpeg" alt="8" /></p>
+  </li>
+  <li>
+    <p>下载 SITEMAP 文件并将其放入网站的根目录。</p>
+  </li>
+</ul>
+
+<h4 id="step-4在-google-search-console-中添加你的-sitemap-url">Step 4：在 Google Search console 中添加你的 sitemap URL。</h4>
+<p>打开 Step 1 中的 <a href="https://www.google.com/webmasters/tools/home">Google Search console</a> 网站，添加你的 sitemap URL。在这里，我的 sitemap URL 为：http://gracegreat1.me/sitemap.url。（因为上一步中已经将该文件放入网站的根目录）
+<img src="http:////ozjtrx3vo.bkt.clouddn.com/2017-11-17-9-1.jpeg" alt="9" /></p>
+
+<h4 id="参考链接">参考链接</h4>
+<p><a href="https://support.google.com/a/answer/6142985?hl=zh-Hans">Namecheap：验证您的域名</a>
+<a href="https://support.google.com/webmasters/answer/156184?hl=zh-Hans&amp;ref_topic=4581190">了解站点地图</a>
+<a href="https://www.ezlippi.com/blog/2015/03/github-pages-blog.html">利用github-pages建立个人博客</a>
+<a href="https://jin-yang.github.io/post/jekyll.html">使用 Jekyll 搭建 Blog</a></p>
+
 
   </section>
 </article>
@@ -153,14 +192,14 @@
 <section class="read-more">
    
    
+   
+   
    <div class="read-more-item">
-       <span class="read-more-item-dim">最近的文章</span>
+       <span class="read-more-item-dim">更早的文章</span>
        <h2 class="post-list__post-title post-title"><a href="/2017/11/%E5%9C%A8macOS-10.12-Sierra-%E4%B8%8A%E5%AE%89%E8%A3%85-Tomcat/" title="link to 在macOS 10.12 Sierra上安装Tomcat">在macOS 10.12 Sierra上安装Tomcat</a></h2>
        <p class="excerpt">来源：Installing Tomcat on macOS 10.12 Sierra今天在 mac 上装 Tomcat，遇到了一点问题。就找了一篇适合 Sierra 的教程，简单翻译下，供大家参考。如有侵权，请告知删除。准备条件：Java首先装好 JDK，下载地址：Java SE - Downloads这里 JDK 安装包是 dmg 格式，很容易安装。随后打开终端，输入：java -version会出现下面的内容：java version "1.8.0_152-eaJava(TM) SE ...&hellip;</p>
        <div class="post-list__meta"><time datetime="2017-11-15 19:44:11 +0800" class="post-list__meta--date date">2017-11-15</time> &#8226; <span class="post-list__meta--tags tags">Tomcat</span><a class="btn-border-small" href=/2017/11/%E5%9C%A8macOS-10.12-Sierra-%E4%B8%8A%E5%AE%89%E8%A3%85-Tomcat/>继续阅读</a></div>
    </div>
-   
-   
    
 </section>
 
@@ -170,8 +209,8 @@
     <script>
     
     var disqus_config = function () {
-        this.page.url = "http://localhost:4000/2017/11/Vim%E5%88%87%E6%8D%A2Normal%E6%A8%A1%E5%BC%8F%E5%8F%98%E6%85%A2-%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/";
-        this.page.identifier = "/2017/11/Vim%E5%88%87%E6%8D%A2Normal%E6%A8%A1%E5%BC%8F%E5%8F%98%E6%85%A2-%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/";
+        this.page.url = "http://localhost:4000/2017/11/%E4%B8%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E-Google-%E6%94%B6%E5%BD%95-%E4%BB%A5-Namecheap-%E4%B8%BA%E4%BE%8B/";
+        this.page.identifier = "/2017/11/%E4%B8%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E-Google-%E6%94%B6%E5%BD%95-%E4%BB%A5-Namecheap-%E4%B8%BA%E4%BE%8B/";
     };
 
     var disqus_shortname = 'gracegreat1';
