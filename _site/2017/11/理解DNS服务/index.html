@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>理解DNS服务</title>
+  <meta name="description" content="结合这两天看的东西，突发奇想写篇以“是什么-为什么-怎么用”为主线的 DNS 服务理解。主要参考书籍为《计算机网络：自顶向下方法》和《深入分析Java Web技术内幕》。">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="理解DNS服务">
+  <meta name="twitter:description" content="结合这两天看的东西，突发奇想写篇以“是什么-为什么-怎么用”为主线的 DNS 服务理解。主要参考书籍为《计算机网络：自顶向下方法》和《深入分析Java Web技术内幕》。">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="理解DNS服务">
+  <meta property="og:description" content="结合这两天看的东西，突发奇想写篇以“是什么-为什么-怎么用”为主线的 DNS 服务理解。主要参考书籍为《计算机网络：自顶向下方法》和《深入分析Java Web技术内幕》。">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2017/11/%E7%90%86%E8%A7%A3DNS%E6%9C%8D%E5%8A%A1/">
+  <link rel="alternate" type="application/rss+xml" title="Joker's" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Joker's 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Joker's logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Joker's" class="blog-button">Joker's</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">A personal blog for Joker.</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">Where I blog abount my way in programming and life both.</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description">Just come in and sit down:)</p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="Visit blog" class="blog-button">Blog</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/gracegreat1" title="@gracegreat1 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:gracegreat1killer@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-slate"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2017-11-18 13:20:11 +0800" itemprop="datePublished" class="post-meta__date date">2017-11-18</time> &#8226; <span class="post-meta__tags tags">DNS</span>
+    </div>
+    <h1 class="post-title">理解DNS服务</h1>
+  </header>
+
+  <section class="post">
+    <p>结合这两天看的东西，突发奇想写篇以“是什么-为什么-怎么用”为主线的 DNS 服务理解。
+主要参考书籍为《计算机网络：自顶向下方法》和《深入分析Java Web技术内幕》。</p>
+
+<h3 id="是什么">是什么</h3>
+<p>首先我们抛出问题：DNS 是什么？</p>
+
+<p>我引用维基百科的原话：域名系统（英文：Domain Name System，缩写：DNS）是互联网的一项服务。它作为将域名和 IP 地址相互映射的一个分布式数据库，能够使人更方便地访问互联网。DNS 使用 TCP 和 UDP 端口53。当前，对于每一级域名长度的限制是63个字符，域名总长度则不能超过253个字符。</p>
+
+<p>短短几行，包含了不少内容，我抓重点来说，DNS 的作用就是<strong>域名和 IP 地址的相互映射</strong>。那么，为什么要让域名和 IP 地址相互映射呢？下面让我们从原因出发，了解 DNS 服务。</p>
+
+<h3 id="为什么">为什么</h3>
+<p>换一种说法，引用《计算机网络：自顶向下方法》中的小节标题来定义：<strong>DNS 是互联网的目录服务</strong>。</p>
+
+<p>这个说法我是非常同意的。</p>
+
+<p>我们知道，域名即主机名。主机名- IP 地址的关系可以类比为姓名-身份证号的关系。我们想要访问一台主机，需要知道它的主机名，就像我们在找人的时候需要知道这个人的姓名一样，当然对于人来讲，通过身份证号我们也可以找到他，但大多数人不会这么做。为什么呢？因为不好记呀。对于主机也是一样的，因为 Web 应用的主要使用者就是我们，我们很难把 IP 地址这种一长串的数字记住，所以用主机名来标志它。而对于计算机或者路由器来说，32位的等长二进制则比不定长的字符串好处理的多（尤其是根据 IP 地址划分子网等行为会影响路由器的转发过程）。因此，我们需要二者之间的转换，也就是 DNS 服务。</p>
+
+<h3 id="怎么用">怎么用</h3>
+<p>知道了 DNS 是什么，以及为什么要使用 DNS 以后，我们需要来看下 DNS 具体是怎样使用的，它的工作过程是什么。</p>
+
+<h4 id="怎么设计的">怎么设计的</h4>
+<p>最简单的想法：在整个因特网上只使用一个 DNS 服务器。</p>
+
+<p>这样可能会出现很多问题：</p>
+
+<ul>
+  <li>单点故障。考虑下该 DNS 服务器崩溃的情况？</li>
+  <li>通信容量。该 DNS 服务器需要处理所有的 DNS 查询。</li>
+  <li>远距离的集中式数据库。假如说该 DNS 服务器被放在北美，而我们从中国访问？中间或许要经过许多低速和拥塞的链路。想想就觉得很扎心吧。</li>
+  <li>维护。为所有的互联网主机保存记录。想下这个数据库得有多大？而且还会频繁发生变化。</li>
+</ul>
+
+<p>综合以上几点，不可能使用集中式数据库。所以 DNS 的设计采用了分布式的设计方案。也就是说，DNS 是一个在因特网上实现的<strong>分布式数据库</strong>。</p>
+
+<p><img src="http://ozjtrx3vo.bkt.clouddn.com/2017-11-22-DNS层次结构.png" alt="DNS层次结构" />
+DNS 的层次结构如上图。大致把 DNS 服务器分为三种类型：</p>
+
+<ul>
+  <li>根 DNS 服务器（最上面一层）</li>
+  <li>顶级 DNS （General top-level domain，缩写为 gTLD）服务器（第二层）</li>
+  <li>权威 DNS 服务器（第三层）</li>
+</ul>
+
+<p>此外，还有一类叫本地 DNS （Local DNS，缩写为 LDNS)服务器。每个 ISP 都有一台 LDNS。</p>
+
+<h4 id="怎么查询解析的">怎么查询（解析）的</h4>
+<p>这个问题可以转化为：当一个用户在浏览器中输入 www.baidu.com 并按下回车时，DNS 解析过程是什么？
+首先，我们考虑缓存。DNS 的结果缓存有以下几种：
+<img src="http://ozjtrx3vo.bkt.clouddn.com/2017-11-22-DNS结果缓存.png" alt="DNS结果缓存" /></p>
+
+<p>缓存检查过程：</p>
+
+<ol>
+  <li>浏览器会检查缓存中有没有域名对应的解析过的 IP 地址，如果有，解析过程结束。</li>
+  <li>如果浏览器缓存中没有，浏览器会查找操作系统缓存中是否有对应的结果，也就是检查 hosts 文件中是否存在该域名对应的 IP 地址。（在 Windows 中 hosts 文件路径为 C:\Windows\System32\drivers\etc\hosts，在 Linux 中为 /etc/hosts）</li>
+  <li>如果前两个步骤都得不到结果，那么用户主机会向 LDNS（上面提到的 本地 DNS 服务器）发送一个 DNS 查询报文，此时查询 LDNS 的缓存。（在 Windows 下可以通过 ipconfig 查看 LDNS，在 Linux 中从 /etc/resolv.conf 文件中查看。</li>
+</ol>
+
+<p>80% 的域名解析过程到上面三步就结束了。还没有命中结果的话，需要继续以下流程。
+DNS 服务器分层查询过程（递归查询 + 迭代查询）：</p>
+
+<ol>
+  <li>如果 LDNS 服务器依然没有命中（第三步），LDNS 服务器会把查询报文转发到根 DNS 服务器。</li>
+  <li>根 DNS 服务器注意到 com 前缀并向 LDNS 返回负责查询域 com 的 gTLD 的 IP 地址列表。</li>
+  <li>该 LDNS 再向上一部返回的 gTLD 之一发送查询报文。</li>
+  <li>gTLD 服务器查找并返回此域名对应的权威 DNS 服务器（可能是某个大学／公司的域名服务器，如上图所示，例如 dns.baidu.com），这个域名服务器通常是你注册的域名服务器。</li>
+  <li>权威 DNS 服务器会查询域名和 IP 地址的映射关系表，在正常情况下得到目标 IP 地址后，连同一个 TTL 值返回给 LDNS 服务器。</li>
+  <li>返回该域名对应的 IP 和 TTL 值，LDNS 会缓存这个域名和 IP 的对应关系，缓存的时间由 TTL 值控制。</li>
+  <li>把解析的结果返回给用户，用户根据 TTL 值缓存在本地系统缓存中，域名解析过程结束。</li>
+</ol>
+
+<p>注：在这里我们假设了 gTLD 服务器知道用于主机的权威 DNS 服务器的 IP 地址。但在实际情况中，可能要经过若干个中间的 DNS 服务器，才能知道该权威 DNS 服务器的 IP，所以不止上述几步。</p>
+
+<p>下面我通过图来展示 DNS 服务器分层查询的过程：
+<img src="http://ozjtrx3vo.bkt.clouddn.com/2017-11-22-DNS查询过程.png" alt="DNS查询过程" /></p>
+
+<p>可以看到，从 1 发出的查询为递归查询，后续三个查询（2、4、6）为迭代查询。</p>
+
+<h3 id="小结">小结</h3>
+<p>以上几部分是我按照一定的逻辑思维顺序，结合书籍与自己的理解给出的 DNS 服务的有关内容。图片部分是我用 processon 和百度脑图自己画的。</p>
+
+<p>对 DNS 服务的理解大致到此了。如果有什么疑问，欢迎大家留言。</p>
+
+
+  </section>
+</article>
+
+<section class="read-more">
+   
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2017/11/%E5%85%B3%E4%BA%8E%E4%B9%A0%E6%83%AF%E5%85%BB%E6%88%90%E7%9A%84%E6%80%9D%E8%80%83/" title="link to 关于习惯养成的思考">关于习惯养成的思考</a></h2>
+       <p class="excerpt">很遗憾，这篇博客依然不是关于技术或者是奇怪的安装配置步骤。是关于自己习惯养成的思考。最近接受到很多来自自己内心的拷问和审视，以至于不得不重视起类似规划和自我实现这样的问题。我去知乎搜了“心理学”的有关分类，得到了很多有用的东西。是什么 &amp;&amp; 为什么？我所焦虑的东西，我关于自身的思考，究竟是什么？是什么让我无法安静做事？为什么这些因素会导致我无法集中精力，做我以为我该做的事情？我的目标是什么？我想要做什么样的事情？      生活中有哪些坏习惯一旦改正就能带来立竿见影的好处？...&hellip;</p>
+       <div class="post-list__meta"><time datetime="2017-11-18 13:20:11 +0800" class="post-list__meta--date date">2017-11-18</time> &#8226; <span class="post-list__meta--tags tags">Thougnts</span><a class="btn-border-small" href=/2017/11/%E5%85%B3%E4%BA%8E%E4%B9%A0%E6%83%AF%E5%85%BB%E6%88%90%E7%9A%84%E6%80%9D%E8%80%83/>继续阅读</a></div>
+   </div>
+   
+</section>
+
+<section class="post-comments">
+  
+    <div id="disqus_thread"></div>
+    <script>
+    
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2017/11/%E7%90%86%E8%A7%A3DNS%E6%9C%8D%E5%8A%A1/";
+        this.page.identifier = "/2017/11/%E7%90%86%E8%A7%A3DNS%E6%9C%8D%E5%8A%A1/";
+    };
+
+    var disqus_shortname = 'gracegreat1';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>要查看<a href="http://disqus.com/?ref_noscript"> Disqus </a>评论，请启用 JavaScript</noscript>
+    
+  
+  
+  
+  
+</section>
+
+
+            <section class="footer">
+    <footer>
+    	<span class="footer__copyright">本站点采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享 署名-非商业性使用-相同方式共享 4.0 国际 许可协议</a></span>
+        <span class="footer__copyright">由 <a href="https://jekyllrb.com">Jekyll</a> 于 2017-11-22 生成，感谢 <a href="https://www.digitalocean.com/?refcode=30ed2d146762">Digital Ocean</a> 为本站提供稳定的 VPS 服务</span>
+        <span class="footer__copyright">本站由 <a href="http://github.com/gracegreat1">@gracegreat1</a> 创建，采用 <a href="https://github.com/onevcat/vno-jekyll">Vno - Jekyll</a> 作为主题，您可以在 GitHub 找到<a href="https://github.com/onevcat/OneV-s-Den">本站源码</a> - &copy; 2017</span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+    
+  </body>
+
+</html>

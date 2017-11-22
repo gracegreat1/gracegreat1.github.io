@@ -5,9 +5,106 @@
     <description>Where I blog abount my way in programming and life both.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 18 Nov 2017 16:16:43 +0800</pubDate>
-    <lastBuildDate>Sat, 18 Nov 2017 16:16:43 +0800</lastBuildDate>
+    <pubDate>Wed, 22 Nov 2017 19:16:31 +0800</pubDate>
+    <lastBuildDate>Wed, 22 Nov 2017 19:16:31 +0800</lastBuildDate>
     <generator>Jekyll v3.4.0</generator>
+    
+      <item>
+        <title>理解DNS服务</title>
+        <description>&lt;p&gt;结合这两天看的东西，突发奇想写篇以“是什么-为什么-怎么用”为主线的 DNS 服务理解。
+主要参考书籍为《计算机网络：自顶向下方法》和《深入分析Java Web技术内幕》。&lt;/p&gt;
+
+&lt;h3 id=&quot;是什么&quot;&gt;是什么&lt;/h3&gt;
+&lt;p&gt;首先我们抛出问题：DNS 是什么？&lt;/p&gt;
+
+&lt;p&gt;我引用维基百科的原话：域名系统（英文：Domain Name System，缩写：DNS）是互联网的一项服务。它作为将域名和 IP 地址相互映射的一个分布式数据库，能够使人更方便地访问互联网。DNS 使用 TCP 和 UDP 端口53。当前，对于每一级域名长度的限制是63个字符，域名总长度则不能超过253个字符。&lt;/p&gt;
+
+&lt;p&gt;短短几行，包含了不少内容，我抓重点来说，DNS 的作用就是&lt;strong&gt;域名和 IP 地址的相互映射&lt;/strong&gt;。那么，为什么要让域名和 IP 地址相互映射呢？下面让我们从原因出发，了解 DNS 服务。&lt;/p&gt;
+
+&lt;h3 id=&quot;为什么&quot;&gt;为什么&lt;/h3&gt;
+&lt;p&gt;换一种说法，引用《计算机网络：自顶向下方法》中的小节标题来定义：&lt;strong&gt;DNS 是互联网的目录服务&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;这个说法我是非常同意的。&lt;/p&gt;
+
+&lt;p&gt;我们知道，域名即主机名。主机名- IP 地址的关系可以类比为姓名-身份证号的关系。我们想要访问一台主机，需要知道它的主机名，就像我们在找人的时候需要知道这个人的姓名一样，当然对于人来讲，通过身份证号我们也可以找到他，但大多数人不会这么做。为什么呢？因为不好记呀。对于主机也是一样的，因为 Web 应用的主要使用者就是我们，我们很难把 IP 地址这种一长串的数字记住，所以用主机名来标志它。而对于计算机或者路由器来说，32位的等长二进制则比不定长的字符串好处理的多（尤其是根据 IP 地址划分子网等行为会影响路由器的转发过程）。因此，我们需要二者之间的转换，也就是 DNS 服务。&lt;/p&gt;
+
+&lt;h3 id=&quot;怎么用&quot;&gt;怎么用&lt;/h3&gt;
+&lt;p&gt;知道了 DNS 是什么，以及为什么要使用 DNS 以后，我们需要来看下 DNS 具体是怎样使用的，它的工作过程是什么。&lt;/p&gt;
+
+&lt;h4 id=&quot;怎么设计的&quot;&gt;怎么设计的&lt;/h4&gt;
+&lt;p&gt;最简单的想法：在整个因特网上只使用一个 DNS 服务器。&lt;/p&gt;
+
+&lt;p&gt;这样可能会出现很多问题：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;单点故障。考虑下该 DNS 服务器崩溃的情况？&lt;/li&gt;
+  &lt;li&gt;通信容量。该 DNS 服务器需要处理所有的 DNS 查询。&lt;/li&gt;
+  &lt;li&gt;远距离的集中式数据库。假如说该 DNS 服务器被放在北美，而我们从中国访问？中间或许要经过许多低速和拥塞的链路。想想就觉得很扎心吧。&lt;/li&gt;
+  &lt;li&gt;维护。为所有的互联网主机保存记录。想下这个数据库得有多大？而且还会频繁发生变化。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;综合以上几点，不可能使用集中式数据库。所以 DNS 的设计采用了分布式的设计方案。也就是说，DNS 是一个在因特网上实现的&lt;strong&gt;分布式数据库&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://ozjtrx3vo.bkt.clouddn.com/2017-11-22-DNS层次结构.png&quot; alt=&quot;DNS层次结构&quot; /&gt;
+DNS 的层次结构如上图。大致把 DNS 服务器分为三种类型：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;根 DNS 服务器（最上面一层）&lt;/li&gt;
+  &lt;li&gt;顶级 DNS （General top-level domain，缩写为 gTLD）服务器（第二层）&lt;/li&gt;
+  &lt;li&gt;权威 DNS 服务器（第三层）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;此外，还有一类叫本地 DNS （Local DNS，缩写为 LDNS)服务器。每个 ISP 都有一台 LDNS。&lt;/p&gt;
+
+&lt;h4 id=&quot;怎么查询解析的&quot;&gt;怎么查询（解析）的&lt;/h4&gt;
+&lt;p&gt;这个问题可以转化为：当一个用户在浏览器中输入 www.baidu.com 并按下回车时，DNS 解析过程是什么？
+首先，我们考虑缓存。DNS 的结果缓存有以下几种：
+&lt;img src=&quot;http://ozjtrx3vo.bkt.clouddn.com/2017-11-22-DNS结果缓存.png&quot; alt=&quot;DNS结果缓存&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;缓存检查过程：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;浏览器会检查缓存中有没有域名对应的解析过的 IP 地址，如果有，解析过程结束。&lt;/li&gt;
+  &lt;li&gt;如果浏览器缓存中没有，浏览器会查找操作系统缓存中是否有对应的结果，也就是检查 hosts 文件中是否存在该域名对应的 IP 地址。（在 Windows 中 hosts 文件路径为 C:\Windows\System32\drivers\etc\hosts，在 Linux 中为 /etc/hosts）&lt;/li&gt;
+  &lt;li&gt;如果前两个步骤都得不到结果，那么用户主机会向 LDNS（上面提到的 本地 DNS 服务器）发送一个 DNS 查询报文，此时查询 LDNS 的缓存。（在 Windows 下可以通过 ipconfig 查看 LDNS，在 Linux 中从 /etc/resolv.conf 文件中查看。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;80% 的域名解析过程到上面三步就结束了。还没有命中结果的话，需要继续以下流程。
+DNS 服务器分层查询过程（递归查询 + 迭代查询）：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;如果 LDNS 服务器依然没有命中（第三步），LDNS 服务器会把查询报文转发到根 DNS 服务器。&lt;/li&gt;
+  &lt;li&gt;根 DNS 服务器注意到 com 前缀并向 LDNS 返回负责查询域 com 的 gTLD 的 IP 地址列表。&lt;/li&gt;
+  &lt;li&gt;该 LDNS 再向上一部返回的 gTLD 之一发送查询报文。&lt;/li&gt;
+  &lt;li&gt;gTLD 服务器查找并返回此域名对应的权威 DNS 服务器（可能是某个大学／公司的域名服务器，如上图所示，例如 dns.baidu.com），这个域名服务器通常是你注册的域名服务器。&lt;/li&gt;
+  &lt;li&gt;权威 DNS 服务器会查询域名和 IP 地址的映射关系表，在正常情况下得到目标 IP 地址后，连同一个 TTL 值返回给 LDNS 服务器。&lt;/li&gt;
+  &lt;li&gt;返回该域名对应的 IP 和 TTL 值，LDNS 会缓存这个域名和 IP 的对应关系，缓存的时间由 TTL 值控制。&lt;/li&gt;
+  &lt;li&gt;把解析的结果返回给用户，用户根据 TTL 值缓存在本地系统缓存中，域名解析过程结束。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;注：在这里我们假设了 gTLD 服务器知道用于主机的权威 DNS 服务器的 IP 地址。但在实际情况中，可能要经过若干个中间的 DNS 服务器，才能知道该权威 DNS 服务器的 IP，所以不止上述几步。&lt;/p&gt;
+
+&lt;p&gt;下面我通过图来展示 DNS 服务器分层查询的过程：
+&lt;img src=&quot;http://ozjtrx3vo.bkt.clouddn.com/2017-11-22-DNS查询过程.png&quot; alt=&quot;DNS查询过程&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;可以看到，从 1 发出的查询为递归查询，后续三个查询（2、4、6）为迭代查询。&lt;/p&gt;
+
+&lt;h3 id=&quot;小结&quot;&gt;小结&lt;/h3&gt;
+&lt;p&gt;以上几部分是我按照一定的逻辑思维顺序，结合书籍与自己的理解给出的 DNS 服务的有关内容。图片部分是我用 processon 和百度脑图自己画的。&lt;/p&gt;
+
+&lt;p&gt;对 DNS 服务的理解大致到此了。如果有什么疑问，欢迎大家留言。&lt;/p&gt;
+
+</description>
+        <pubDate>Sat, 18 Nov 2017 13:20:11 +0800</pubDate>
+        <link>http://localhost:4000/2017/11/%E7%90%86%E8%A7%A3DNS%E6%9C%8D%E5%8A%A1/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/11/%E7%90%86%E8%A7%A3DNS%E6%9C%8D%E5%8A%A1/</guid>
+        
+        <category>DNS</category>
+        
+        
+        <category>Network</category>
+        
+      </item>
     
       <item>
         <title>关于习惯养成的思考</title>
@@ -137,7 +234,7 @@
       </item>
     
       <item>
-        <title>为自己的博客添加搜索引擎（Google）收录（以 Namecheap 为例）</title>
+        <title>为自己的博客添加搜索引擎（Google）收录（以Namecheap为例）</title>
         <description>&lt;p&gt;博客搭好了，怎样才能让别人通过 Google 搜索到自己的博客呢？
 下面，我们来看一下具体步骤。&lt;/p&gt;
 
@@ -290,6 +387,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.152-b05, mixed mode)
   &lt;li&gt;&lt;a href=&quot;https://www.johnhawthorn.com/2012/09/vi-escape-delays/&quot;&gt;Eliminating delays on ESC in vim and zsh&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://github.com/vim-airline/vim-airline/issues/124&quot;&gt;Delay when switching insert mode to normal mode&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
 </description>
         <pubDate>Tue, 14 Nov 2017 22:02:11 +0800</pubDate>
         <link>http://localhost:4000/2017/11/Vim%E5%88%87%E6%8D%A2Normal%E6%A8%A1%E5%BC%8F%E5%8F%98%E6%85%A2-%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/</link>
@@ -297,6 +395,8 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.152-b05, mixed mode)
         
         <category>Vim</category>
         
+        
+        <category>DevTools</category>
         
       </item>
     
