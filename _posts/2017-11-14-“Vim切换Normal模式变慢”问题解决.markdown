@@ -2,6 +2,7 @@
 layout: post
 title: “Vim切换Normal模式变慢”问题解决
 date: 2017-11-14 23:02:11.000000000 +09:00
+category: DevTools
 tags: Vim
 ---
 
@@ -19,3 +20,5 @@ set timeoutlen=1000 ttimeoutlen=0
 参考资料：
 - [Eliminating delays on ESC in vim and zsh](https://www.johnhawthorn.com/2012/09/vi-escape-delays/)
 - [Delay when switching insert mode to normal mode](https://github.com/vim-airline/vim-airline/issues/124)
+
+

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>47B84E835106E5538076A505A70181F4</key>
+	<array>
+		<dict>
+			<key>localURL</key>
+			<string>media/DNS%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84.png</string>
+			<key>remoteURL</key>
+			<string>http://
+http://ozjtrx3vo.bkt.clouddn.com/2017-11-22-DNS层次结构.png</string>
+		</dict>
+		<dict>
+			<key>localURL</key>
+			<string>media/DNS%E7%BB%93%E6%9E%9C%E7%BC%93%E5%AD%98.png</string>
+			<key>remoteURL</key>
+			<string>http://
+http://ozjtrx3vo.bkt.clouddn.com/2017-11-22-DNS结果缓存.png</string>
+		</dict>
+		<dict>
+			<key>localURL</key>
+			<string>media/DNS%E6%9F%A5%E8%AF%A2%E8%BF%87%E7%A8%8B.png</string>
+			<key>remoteURL</key>
+			<string>http://
+http://ozjtrx3vo.bkt.clouddn.com/2017-11-22-DNS查询过程.png</string>
+		</dict>
+	</array>
+	<key>selectedItem</key>
+	<string>47B84E835106E5538076A505A70181F4</string>
+</dict>
+</plist>

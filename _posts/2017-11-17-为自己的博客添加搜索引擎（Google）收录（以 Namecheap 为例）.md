@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 为自己的博客添加搜索引擎（Google）收录（以 Namecheap 为例）
+title: 为自己的博客添加搜索引擎（Google）收录（以Namecheap为例）
 date: 2017-11-17 15:40:11.000000000 +09:00
 category: DevTools
 tags: Jekyll
