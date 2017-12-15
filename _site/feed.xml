@@ -2,12 +2,123 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Joker's</title>
-    <description>Where I blog abount my way in programming and life both.</description>
+    <description>Lady luck favors the one who tries.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 12 Dec 2017 14:33:23 +0800</pubDate>
-    <lastBuildDate>Tue, 12 Dec 2017 14:33:23 +0800</lastBuildDate>
+    <pubDate>Fri, 15 Dec 2017 14:14:21 +0800</pubDate>
+    <lastBuildDate>Fri, 15 Dec 2017 14:14:21 +0800</lastBuildDate>
     <generator>Jekyll v3.4.0</generator>
+    
+      <item>
+        <title>阶段小结（二）</title>
+        <description>&lt;h4 id=&quot;12月12日下午开始共6个番茄&quot;&gt;12月12日（下午开始，共6个番茄）&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;看了下《深入分析Java Web技术内幕》的第二章，发现主要涉及到 I/O，于是打算先补齐 Java I/O 内容，主要通过博客、《Thinking in Java》和《Core Java》。耗时3个番茄，全部完成。&lt;/li&gt;
+  &lt;li&gt;开始《Learning How to Learn》第二周的学习，耗时2个番茄。&lt;/li&gt;
+  &lt;li&gt;有锻炼腹肌。&lt;/li&gt;
+  &lt;li&gt;有睡前阅读。&lt;/li&gt;
+  &lt;li&gt;有早睡（12点以前）。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;12月13日全天共9个番茄&quot;&gt;12月13日（全天，共9个番茄）&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;9:45到达自习室，也没有很早。&lt;/li&gt;
+  &lt;li&gt;《Java Web》第二章，耗时3.5番茄。完成一半内容。包括 I/O 类库基本架构和磁盘 I/O。&lt;/li&gt;
+  &lt;li&gt;《Learning How to Learn》耗时3.5番茄，完成第二周全部必需部分内容，测验全部100分，有笔记。这一周主要讲的是 How to form a chunk。&lt;/li&gt;
+  &lt;li&gt;Vim 练级一、二部分完成，耗时0.5番茄，基本可以熟练地移动光标和插入删除，在后面写 socket 的编程的过程中有意识地使用 Vim。&lt;/li&gt;
+  &lt;li&gt;《Computer Network》0.5番茄。&lt;/li&gt;
+  &lt;li&gt;LintCode 开始，1番茄。&lt;/li&gt;
+  &lt;li&gt;有锻炼计划第一天。&lt;/li&gt;
+  &lt;li&gt;有睡前阅读。读完了阿加莎的《尼罗河上的惨案》，导致早睡失败，反思睡前适合读什么书。&lt;/li&gt;
+  &lt;li&gt;没有早睡。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;12月14日全天共11个番茄尤其写实验的时候比较专注&quot;&gt;12月14日（全天，共11个番茄，尤其写实验的时候比较专注）&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;早上来了自习室没网，折腾网的事情到10:30。&lt;/li&gt;
+  &lt;li&gt;Vim 练级第三级完成，1番茄。&lt;/li&gt;
+  &lt;li&gt;在看《Java Web》的时候，发现涉及到 socket 部分，于是回头补《Computer Network》中应用层部分的实验，耗时5.5番茄，完成 WebServer 和 UDPPing 两个实验（还剩两个）。&lt;/li&gt;
+  &lt;li&gt;《Java Web》开了个头，耗时1番茄。&lt;/li&gt;
+  &lt;li&gt;《Learning How to Learn》第三周开始，耗时2番茄，开始结合英文字幕学习，虽然比较慢，但相信慢慢会有成果！！本周讲的是 How to tackle procrastination 以及 zombie mode，觉得非常受用。&lt;/li&gt;
+  &lt;li&gt;LintCode 再开始，1番茄。&lt;/li&gt;
+  &lt;li&gt;帮小朋友处理问题，0.5番茄。&lt;/li&gt;
+  &lt;li&gt;晚上发生了一些事情，导致自己突然的情绪变化。无早睡，无睡前阅读，无锻炼。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;小结&quot;&gt;小结&lt;/h4&gt;
+&lt;p&gt;在学习习惯方面做的比较好了，&lt;strong&gt;专注力&lt;/strong&gt;也有大幅度上升，对于计划的把控力变强。&lt;/p&gt;
+
+&lt;p&gt;缺点是，依然没有做到良好的早睡早起，需要把锻炼&lt;strong&gt;提前&lt;/strong&gt;安排，睡前阅读的材料需要把控。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Use deliberate practice (what you find more difficult).&lt;/strong&gt; 是巩固学习的重要一环，有在慢慢的去做。&lt;/p&gt;
+
+&lt;p&gt;总体来讲，对自己基本满意，从今天开始优先把握&lt;strong&gt;早睡早起+锻炼&lt;/strong&gt;。自己的软肋和调整方案都已经找到，暂时不会再写小结了，等一段时间之后再总结。&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 15 Dec 2017 12:48:11 +0800</pubDate>
+        <link>http://localhost:4000/2017/12/%E9%98%B6%E6%AE%B5%E5%B0%8F%E7%BB%93-%E4%BA%8C/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/12/%E9%98%B6%E6%AE%B5%E5%B0%8F%E7%BB%93-%E4%BA%8C/</guid>
+        
+        <category>Plan</category>
+        
+        
+        <category>Summary</category>
+        
+      </item>
+    
+      <item>
+        <title>Socket编程中遇到的CRLF</title>
+        <description>&lt;h3 id=&quot;problem&quot;&gt;Problem&lt;/h3&gt;
+&lt;p&gt;先说问题：在 Socket 编程的过程中，我遇到了&lt;code class=&quot;highlighter-rouge&quot;&gt;\r\n\r\n&lt;/code&gt;且不知道为何物，查找资料之后发现背后的故事还是很有趣的，决定拿上来和大家分享。&lt;/p&gt;
+
+&lt;p&gt;今天在尝试补齐之前《Computer Network》的应用层编程作业，第一题是这样的：
+要求开发一个简单的 Web 服务器，从浏览器请求一个文件后，我们服务器可以返回这个文件的内容，如果找不到，返回 404。（《Computer Network: A Top-Down Approach Sixth Edition》中文版 P120 作业1）&lt;/p&gt;
+
+&lt;p&gt;然后我在编写响应报文的时候，遇到换行的问题，发现别人的解决方案是&lt;code class=&quot;highlighter-rouge&quot;&gt;\r\n\r\n&lt;/code&gt;，感到疑惑。&lt;/p&gt;
+
+&lt;h3 id=&quot;solution&quot;&gt;Solution&lt;/h3&gt;
+&lt;p&gt;众所周知，一个 HTTP 响应报文的组成是这样的：&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;HTTP/1.1 200 OK
+.....
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;第一行是状态行，在返回状态行以后，有一个换行的操作。是这里用了&lt;code class=&quot;highlighter-rouge&quot;&gt;\r\n\r\n&lt;/code&gt;，又称作 &lt;code class=&quot;highlighter-rouge&quot;&gt;CRLF&lt;/code&gt;。
+这里涉及到两个内容：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;RFC 文档中规定，HTTP message 中，message-header 和 message-body 中必须间隔两个 CRLF。
+&lt;img src=&quot;http://ozjtrx3vo.bkt.clouddn.com/2017-12-14-15132434255139.jpg&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+  &lt;li&gt;CRLF 是指&lt;strong&gt;回车（Carriage Return）+换行（Line Feed）&lt;/strong&gt;。我以前一直以为回车和换行是一个概念，真心长见识了。回车的意思是，将当前光标移动到同一行中的最左边；换行的意思是，保持当前光标的水平位置位置不变，换到下一行。这个历史竟然是涉及到一个叫“电传打印机”的玩意儿，我会贴链接在后面，感兴趣的各位可以看一下。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;summary&quot;&gt;Summary&lt;/h3&gt;
+&lt;p&gt;依稀记得研一好像有 Socket 编程的实验，当时没认真做，所以现在又踩了这个坑。&lt;/p&gt;
+
+&lt;p&gt;还请各位学霸们多多嘲讽！！！&lt;/p&gt;
+
+&lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/10171127/what-is-the-character-of-r-n-r-n-in-nodejs-tcp-ip&quot;&gt;stackoverflow - what is the character of \r\n\r\n in nodejs TCP/IP&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://www.w3.org/Protocols/rfc2616/rfc2616-sec4.html#sec4&quot;&gt;RFC 文档&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://www.crifan.com/detailed_carriage_return_0x0d_0x0a_cr_lf__r__n_the_context/&quot;&gt;【详解】回车 换行 0x0D 0x0A CR LF \r \n的来龙去脉&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Thu, 14 Dec 2017 16:30:11 +0800</pubDate>
+        <link>http://localhost:4000/2017/12/Socket%E7%BC%96%E7%A8%8B%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84CRLF/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/12/Socket%E7%BC%96%E7%A8%8B%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84CRLF/</guid>
+        
+        <category>Socket</category>
+        
+        
+        <category>Network</category>
+        
+      </item>
     
       <item>
         <title>阶段小结（一）</title>
@@ -15,7 +126,7 @@
   &lt;p&gt;“让我来痛心疾首地总结一下上一个计划的七天我都做了什么。”&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h4 id=&quot;信誓旦旦的我-vs-垂头丧气的我&quot;&gt;信誓旦旦的我 VS 垂头丧气的我&lt;/h4&gt;
+&lt;h3 id=&quot;信誓旦旦的我-vs-垂头丧气的我&quot;&gt;信誓旦旦的我 VS 垂头丧气的我&lt;/h3&gt;
 &lt;p&gt;你不可能知道我写这篇总结用了多大的勇气。&lt;/p&gt;
 
 &lt;p&gt;刚刚结束10天的台湾环岛行回来，带了一身的疲惫。于是我又开始从总结开始了。&lt;/p&gt;
@@ -24,54 +135,51 @@
 
 &lt;p&gt;首先需要声明一下，在这期间的每个下午，2:00到6:00，我是需要练车的，能用来学习的时间是上午和晚上。另外，25号和26号下午是需要考场练车，27号上午进行科目二的考试。&lt;/p&gt;
 
-&lt;h4 id=&quot;目标转化率&quot;&gt;目标转化率&lt;/h4&gt;
+&lt;h3 id=&quot;目标转化率&quot;&gt;目标转化率&lt;/h3&gt;
+&lt;h4 id=&quot;首先在那之后的七天里我做了什么&quot;&gt;首先，在那之后的七天里，我做了什么？&lt;/h4&gt;
 &lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;首先，在那之后的七天里，我做了什么？&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;关注注意力的转移并寻找替代行为 -&amp;gt; 我随身带了 kindle。&lt;/li&gt;
-      &lt;li&gt;关注注意力的转移并寻找替代行为 -&amp;gt; 我把在做的重要事项用便利贴写下来，放在电脑屏幕旁边。这对我来说是很便于集中精力的，我不只把它们放在电脑旁边，甚至有时候会列好一整天要做的事情在便利贴上，然后逐项完成。这点让我很高效，尤其在准备旅行的过程中，完成了诸如办理华夏银行卡、干洗大衣等一系列本来可能不会被完成的事情。&lt;/li&gt;
-      &lt;li&gt;关注注意力的转移并寻找替代行为 -&amp;gt; 工作时把手机调成震动，倒扣过来。这点完成得较好。&lt;/li&gt;
-      &lt;li&gt;坚持运动。我在11月21日晚上22:13分完成了一个志得意满的三公里跑并在11月22日完成了《马甲线养成》的第一次训练，且在当天发朋友圈表示30s的 plank 真特么难，随后果不其然地受到了小伙伴的鄙视。&lt;/li&gt;
-      &lt;li&gt;试试用时+拉回+备忘的方法。 这个方法我用了，非常好用。我发现自己在每段学习时间内第一个番茄钟时，需要被拉回的次数最多，而且一般想起来的不是需要备注的事情，只是纯粹的拉回。&lt;/li&gt;
-      &lt;li&gt;看书的时候先看目录，再看章后习题，最后根据题目中名词去看内容。解决了我看书学习的一大困惑。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;其次，在那之后的七天里，我做失败了什么？&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;我虽然随身带了 kindle，但只读完了一本《萤火虫小巷》，并且没有写书评。更糟糕的是，我原本计划要读的《谈判力》，只读了10%。&lt;/li&gt;
-      &lt;li&gt;遗憾的是，除了11月21日和11月22日，其他时间我并没有进行锻炼。并且在受到小伙伴鄙视之后，第二天依然没有进行训练。&lt;/li&gt;
-      &lt;li&gt;那么在七天里我进行了多少次需要使用用时+拉回+备忘的学习训练呢？四天，18、19、21、22。刚看了记录发现，竟然有好几天我是把早上睡过去了的，另外有几天也没有起来，晚上的时间做攻略，所以没有学习？？？好吧这就是我。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;我的计划完成的怎么样？&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;完成 UCSD 第一周的课程。OK，完成了。可惜出去玩的时间度过了第二周，现在我不得不继续追赶第二周和第三周的课程。&lt;/li&gt;
-      &lt;li&gt;结合《自顶向下》的内容，复习《深入分析Java Web技术内幕》第一章。OK，完成了。并且还写了一篇博客，算是超额完成。负载均衡的内容也仔细看了，但理解还需时日。&lt;/li&gt;
-      &lt;li&gt;学习《深入分析Java Web技术内幕》第二章。No，一点都没有做。&lt;/li&gt;
-      &lt;li&gt;项目实战，每天一节。No，好像…只做了一节？&lt;/li&gt;
-      &lt;li&gt;其他的：准备生日礼物，完成；订台湾机票+酒店，在队友的 push 下才完成。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;我为什么做成功了/失败了？&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;更喜欢高刺激的视频、朋友圈以及打游戏，难以把注意力转移到看书上面。&lt;/li&gt;
-      &lt;li&gt;没有早睡，导致无法早起，身体虚弱因而无法锻炼。&lt;/li&gt;
-      &lt;li&gt;同样，没有自习的原因就是无法早起，上午时间全部浪费，有的时候下午练完车确实比较累了。&lt;/li&gt;
-      &lt;li&gt;疲劳的时候不要直接躺下玩手机，先去洗澡。这点完全没有做到。&lt;/li&gt;
-      &lt;li&gt;还有一些客观因素，比如有些需要跑腿的事情，下午要练车，所以上午要去做，而去考场的那两天比较累，有一天还是骑单车回来的，所以应该早点休息才对。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;我现在要马上去做什么？&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;首先学会读书，从现在开始，每晚睡前阅读半小时，三天后打卡。&lt;/li&gt;
-      &lt;li&gt;其次坚持运动。昨天照镜子看到自己嘴唇发灰被吓了一跳，今天开始坚持跑步或腹肌训练三天，来打卡。&lt;/li&gt;
-      &lt;li&gt;坚持使用便利贴。&lt;/li&gt;
-      &lt;li&gt;坚持使用用时+拉回+备忘的学习训练方法，并配合番茄钟进行严格的休息。&lt;/li&gt;
-      &lt;li&gt;坚持使用先看目录、再看习题、最后根据名词看内容的学习方法。&lt;/li&gt;
-      &lt;li&gt;疲劳的时候不要直接躺下玩手机，先去洗澡。&lt;/li&gt;
-      &lt;li&gt;早睡早起！！！！！最后也是最重要！！！！！&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
+  &lt;li&gt;关注注意力的转移并寻找替代行为 -&amp;gt; 我随身带了 kindle。&lt;/li&gt;
+  &lt;li&gt;关注注意力的转移并寻找替代行为 -&amp;gt; 我把在做的重要事项用便利贴写下来，放在电脑屏幕旁边。这对我来说是很便于集中精力的，我不只把它们放在电脑旁边，甚至有时候会列好一整天要做的事情在便利贴上，然后逐项完成。这点让我很高效，尤其在准备旅行的过程中，完成了诸如办理华夏银行卡、干洗大衣等一系列本来可能不会被完成的事情。&lt;/li&gt;
+  &lt;li&gt;关注注意力的转移并寻找替代行为 -&amp;gt; 工作时把手机调成震动，倒扣过来。这点完成得较好。&lt;/li&gt;
+  &lt;li&gt;坚持运动。我在11月21日晚上22:13分完成了一个志得意满的三公里跑并在11月22日完成了《马甲线养成》的第一次训练，且在当天发朋友圈表示30s的 plank 真特么难，随后果不其然地受到了小伙伴的鄙视。&lt;/li&gt;
+  &lt;li&gt;试试用时+拉回+备忘的方法。 这个方法我用了，非常好用。我发现自己在每段学习时间内第一个番茄钟时，需要被拉回的次数最多，而且一般想起来的不是需要备注的事情，只是纯粹的拉回。&lt;/li&gt;
+  &lt;li&gt;看书的时候先看目录，再看章后习题，最后根据题目中名词去看内容。解决了我看书学习的一大困惑。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;其次在那之后的七天里我做失败了什么&quot;&gt;其次，在那之后的七天里，我做失败了什么？&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;我虽然随身带了 kindle，但只读完了一本《萤火虫小巷》，并且没有写书评。更糟糕的是，我原本计划要读的《谈判力》，只读了10%。&lt;/li&gt;
+  &lt;li&gt;遗憾的是，除了11月21日和11月22日，其他时间我并没有进行锻炼。并且在受到小伙伴鄙视之后，第二天依然没有进行训练。&lt;/li&gt;
+  &lt;li&gt;那么在七天里我进行了多少次需要使用用时+拉回+备忘的学习训练呢？四天，18、19、21、22。刚看了记录发现，竟然有好几天我是把早上睡过去了的，另外有几天也没有起来，晚上的时间做攻略，所以没有学习？？？好吧这就是我。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;我的计划完成的怎么样&quot;&gt;我的计划完成的怎么样？&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;完成 UCSD 第一周的课程。OK，完成了。可惜出去玩的时间度过了第二周，现在我不得不继续追赶第二周和第三周的课程。&lt;/li&gt;
+  &lt;li&gt;结合《自顶向下》的内容，复习《深入分析Java Web技术内幕》第一章。OK，完成了。并且还写了一篇博客，算是超额完成。负载均衡的内容也仔细看了，但理解还需时日。&lt;/li&gt;
+  &lt;li&gt;学习《深入分析Java Web技术内幕》第二章。No，一点都没有做。&lt;/li&gt;
+  &lt;li&gt;项目实战，每天一节。No，好像…只做了一节？&lt;/li&gt;
+  &lt;li&gt;其他的：准备生日礼物，完成；订台湾机票+酒店，在队友的 push 下才完成。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;我为什么做成功了失败了&quot;&gt;我为什么做成功了/失败了？&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;更喜欢高刺激的视频、朋友圈以及打游戏，难以把注意力转移到看书上面。&lt;/li&gt;
+  &lt;li&gt;没有早睡，导致无法早起，身体虚弱因而无法锻炼。&lt;/li&gt;
+  &lt;li&gt;同样，没有自习的原因就是无法早起，上午时间全部浪费，有的时候下午练完车确实比较累了。&lt;/li&gt;
+  &lt;li&gt;疲劳的时候不要直接躺下玩手机，先去洗澡。这点完全没有做到。&lt;/li&gt;
+  &lt;li&gt;还有一些客观因素，比如有些需要跑腿的事情，下午要练车，所以上午要去做，而去考场的那两天比较累，有一天还是骑单车回来的，所以应该早点休息才对。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;我现在要马上去做什么&quot;&gt;我现在要马上去做什么？&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;首先学会读书，从现在开始，每晚睡前阅读半小时，三天后打卡。&lt;/li&gt;
+  &lt;li&gt;其次坚持运动。昨天照镜子看到自己嘴唇发灰被吓了一跳，今天开始坚持跑步或腹肌训练三天，来打卡。&lt;/li&gt;
+  &lt;li&gt;坚持使用便利贴。&lt;/li&gt;
+  &lt;li&gt;坚持使用用时+拉回+备忘的学习训练方法，并配合番茄钟进行严格的休息。&lt;/li&gt;
+  &lt;li&gt;坚持使用先看目录、再看习题、最后根据名词看内容的学习方法。&lt;/li&gt;
+  &lt;li&gt;疲劳的时候不要直接躺下玩手机，先去洗澡。&lt;/li&gt;
+  &lt;li&gt;早睡早起！！！！！最后也是最重要！！！！！&lt;/li&gt;
 &lt;/ul&gt;
 
 </description>
