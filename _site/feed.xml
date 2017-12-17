@@ -5,9 +5,44 @@
     <description>Lady luck favors the one who tries.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 15 Dec 2017 14:14:21 +0800</pubDate>
-    <lastBuildDate>Fri, 15 Dec 2017 14:14:21 +0800</lastBuildDate>
+    <pubDate>Sun, 17 Dec 2017 22:16:31 +0800</pubDate>
+    <lastBuildDate>Sun, 17 Dec 2017 22:16:31 +0800</lastBuildDate>
     <generator>Jekyll v3.4.0</generator>
+    
+      <item>
+        <title>Coursera-Learning How to Learn</title>
+        <description>&lt;p&gt;《Learning How to Learn: Powerful mental tools to help you master tough subjects》，Coursera 上我完成的第一门课，疯狂打 call！！！&lt;/p&gt;
+
+&lt;p&gt;考试成绩 97.3%，实在是刷不动第二遍了，因为题目都是英文的且专业词汇很多，本身读的比较慢，考试的27道题，我差不多用了一个番茄加5～10分钟的时间，基本上一分钟一道题吧，考试的很多都是练习原题，为了让我们巩固方法和认知。&lt;/p&gt;
+
+&lt;p&gt;这门课主要是教我们如何学习，从心理学、大脑的生理结构等各种方面阐述了大脑的工作机制以及一些学习方法，比如如何对抗拖延（Procrastination），如何利用僵尸模式（Zombie Mode），如何避免学习中的幻觉（Illusions of Learning)，如何从集中模式（Focused Mode）与发散模式（Diffused Mode）之间进行切换……&lt;/p&gt;
+
+&lt;p&gt;等等等等，解答了我关于学习的非常多的困惑。与此同时，我也学会了很多学习方法。每周都有记英文笔记和生词，就不再放上来了。&lt;/p&gt;
+
+&lt;p&gt;学到了很多方法比如，“Exercise is by far, more effective than any drug on the market today to help you learn better”, “Focus on PROCESS rather than on PRODUCT”, “Use Poromodo to concentrate”, “try to remember things using SPACE MEMORY”…&lt;/p&gt;
+
+&lt;p&gt;还有，睡眠对记忆的影响真的非常深= =睡眠可以潜移默化地把知识点转化为知识块（make a chunk），感谢 Coursera 和这门课的教授，Dr. Barbara Oakley 和 Dr. Terrence Sejnowski，尤其是 Dr. Barbara Oakley，这个二十岁才开始学数学然而现在已经是工程学教授了的女性，十九岁时投掷手榴弹的那一幕真是令我印象深刻。&lt;/p&gt;
+
+&lt;p&gt;最后，通过这门课程，我不仅学到了关于学习的方法并在付诸实践，而且有两个变化令我惊喜：&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;我通过英文字幕来观看的大部门课程，看不懂的时候会切换到中文字幕，学会了很多单词（比如拼写 procrastination 拖延症，比如认识“海马体”这种变态的词汇），另外，在最后一周的时候感觉理解英文长句子的能力有了长进和恢复。&lt;/li&gt;
+  &lt;li&gt;这是我首门坚持下来并且考完试的 Coursera 课程。虽然中间去台湾旅行导致课程落下了，但是回来之后的几天时间内我补全并非常认真地参加了考试以及每一次练习，且认真的记了笔记。所以说，虽然没有间隔学习，后面我会时不时回头重温并且加以运用的。完成这门课程对我来说意义重大，以后的其他 Coursera 课程我也会更有勇气地学下去。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;最后，放一张 Barbara Oakley 的图片吧：
+&lt;img src=&quot;http://ozjtrx3vo.bkt.clouddn.com/2017-12-17-屏幕快照 2017-11-19 上午10.21.14.png&quot; alt=&quot;屏幕快照 2017-11-19 上午10.21.14&quot; /&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Sun, 17 Dec 2017 21:09:11 +0800</pubDate>
+        <link>http://localhost:4000/2017/12/Coursera-Learning-How-to-Learn/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/12/Coursera-Learning-How-to-Learn/</guid>
+        
+        <category>Learning</category>
+        
+        
+        <category>Coursera</category>
+        
+      </item>
     
       <item>
         <title>阶段小结（二）</title>
@@ -53,6 +88,8 @@
 &lt;p&gt;&lt;strong&gt;Use deliberate practice (what you find more difficult).&lt;/strong&gt; 是巩固学习的重要一环，有在慢慢的去做。&lt;/p&gt;
 
 &lt;p&gt;总体来讲，对自己基本满意，从今天开始优先把握&lt;strong&gt;早睡早起+锻炼&lt;/strong&gt;。自己的软肋和调整方案都已经找到，暂时不会再写小结了，等一段时间之后再总结。&lt;/p&gt;
+
+&lt;p&gt;还有一点就是，&lt;strong&gt;不要把困难的事情留到晚上来做&lt;/strong&gt;。因为晚上要早睡，相对来说时间比较紧迫，无法把注意力完全放倒过程上去，尤其是对于算法这种相对有结果的任务来说，适合放到早一点（上午或者下午）的安排中去。&lt;/p&gt;
 
 </description>
         <pubDate>Fri, 15 Dec 2017 12:48:11 +0800</pubDate>
