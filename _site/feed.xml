@@ -5,9 +5,84 @@
     <description>Lady luck favors the one who tries.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 17 Dec 2017 22:16:31 +0800</pubDate>
-    <lastBuildDate>Sun, 17 Dec 2017 22:16:31 +0800</lastBuildDate>
+    <pubDate>Tue, 19 Dec 2017 21:43:46 +0800</pubDate>
+    <lastBuildDate>Tue, 19 Dec 2017 21:43:46 +0800</lastBuildDate>
     <generator>Jekyll v3.4.0</generator>
+    
+      <item>
+        <title>“使用Python和TCP协议实现邮件客户端”踩坑553小记</title>
+        <description>&lt;p&gt;开始做《Computer Networking: A Top-Down Approach》应用层的编程作业3：邮件客户端。&lt;/p&gt;
+
+&lt;p&gt;题目要求时创建一个能向任何接收方发送电子邮件的简单邮件客户。这个客户需要通过TCP协议与邮件服务器进行连接，然后通过SMTP协议与邮件服务器交换数据。&lt;/p&gt;
+
+&lt;p&gt;好吧，首先套路式地创建 TCP 连接，serverName 自然是我们要进行连接的 SMTP 服务器地址，通过查询我找到了&lt;a href=&quot;http://help.163.com/09/1223/14/5R7P3QI100753VB8.html&quot;&gt;163免费邮客户端设置的POP3、SMTP、IMAP地址&lt;/a&gt;，如图所示：
+&lt;img src=&quot;http://ozjtrx3vo.bkt.clouddn.com/2017-12-19-15136877801688.png&quot; alt=&quot;&quot; /&gt;
+所以我们的 serverName 是 smtp.163.com，serverPort 为 SMTP 的默认端口 25。请求发送出去，我们能收到服务器传回来的 &lt;code class=&quot;highlighter-rouge&quot;&gt;220 163.com Anti-spam GT for Coremail System (163com[20141201])&lt;/code&gt;，好的没有问题。&lt;/p&gt;
+
+&lt;h4 id=&quot;坑在哪里&quot;&gt;坑在哪里？&lt;/h4&gt;
+&lt;p&gt;按照中文第六版 P82 所形容的 SMTP 交换报文的格式，我创建了以下消息并用 socket 的 send 方法发送：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;“HELO 163.com\r\n”&lt;/li&gt;
+  &lt;li&gt;“MAIL FROM: &lt;a href=&quot;mailto:joker@163.com&quot;&gt;joker@163.com&lt;/a&gt;\r\n”&lt;/li&gt;
+  &lt;li&gt;“RCPT TO: &lt;a href=&quot;mailto:111000@qq.com&quot;&gt;111000@qq.com&lt;/a&gt;\r\n”&lt;/li&gt;
+  &lt;li&gt;“DATA”&lt;/li&gt;
+  &lt;li&gt;…&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;结果，从第二条开始就出错了。服务器给我返回了：&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;220 163.com Anti-spam GT for Coremail System (163com[20141201])
+
+250 OK
+
+553 authentication is required,163 smtp11,D8CowACnytCrxzhaT7gLEQ--.52662S2 1513670571
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;令人沮丧，说需要认证，好吧。&lt;/p&gt;
+
+&lt;h4 id=&quot;出坑&quot;&gt;出坑&lt;/h4&gt;
+
+&lt;p&gt;查了半天资料发现，这是由于 163.com 的&lt;strong&gt;反垃圾邮件&lt;/strong&gt;策略决定的，我们简单地通过这种方式发送的邮件难以通过反垃圾邮件的检测而到达邮箱。所以我们需要增加一个用来认证的 &lt;strong&gt;AUTH LOGIN&lt;/strong&gt; 过程。&lt;/p&gt;
+
+&lt;p&gt;具体实现过程就是，在 &lt;code class=&quot;highlighter-rouge&quot;&gt;MAIL FROM&lt;/code&gt; 之前，添加如下代码：&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Auth
+clientSocket.send('AUTH LOGIN\r\n')
+recv = clientSocket.recv(1024)
+print(recv)
+if (recv[:3] != '334'):
+    print('334 reply not received from server')
+ 
+clientSocket.send((username + '\r\n').encode())
+recv = clientSocket.recv(1024).decode()
+print(recv)
+if (recv[:3] != '334'):
+    print('334 reply not received from server')
+
+clientSocket.sendall((password + '\r\n').encode())
+recv = clientSocket.recv(1024).decode()
+print(recv)
+if (recv[:3] != '235'):
+    print('235 reply not received from server')
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;而其中的 username 和 password 又是需要 base64 编码的。&lt;/p&gt;
+
+&lt;h4 id=&quot;相关资料&quot;&gt;相关资料&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/welber/article/details/6312610&quot;&gt;python模块之smtplib: 用python发送SSL/TLS安全邮件&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/moranzcw/Computer-Networking-A-Top-Down-Approach-NOTES/blob/master/SocketProgrammingAssignment/%E4%BD%9C%E4%B8%9A3-%E9%82%AE%E4%BB%B6%E5%AE%A2%E6%88%B7%E7%AB%AF/source/SMTPClient.py&quot;&gt;作业3-邮件客户端&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Tue, 19 Dec 2017 19:30:11 +0800</pubDate>
+        <link>http://localhost:4000/2017/12/%E4%BD%BF%E7%94%A8Python%E5%92%8CTCP%E5%8D%8F%E8%AE%AE%E5%AE%9E%E7%8E%B0%E9%82%AE%E4%BB%B6%E5%AE%A2%E6%88%B7%E7%AB%AF-%E8%B8%A9%E5%9D%91%E5%B0%8F%E8%AE%B0/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/12/%E4%BD%BF%E7%94%A8Python%E5%92%8CTCP%E5%8D%8F%E8%AE%AE%E5%AE%9E%E7%8E%B0%E9%82%AE%E4%BB%B6%E5%AE%A2%E6%88%B7%E7%AB%AF-%E8%B8%A9%E5%9D%91%E5%B0%8F%E8%AE%B0/</guid>
+        
+        <category>Socket</category>
+        
+        
+        <category>Network</category>
+        
+      </item>
     
       <item>
         <title>Coursera-Learning How to Learn</title>
@@ -585,37 +660,6 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.152-b05, mixed mode)
         <guid isPermaLink="true">http://localhost:4000/2017/11/%E5%9C%A8macOS-10.12-Sierra-%E4%B8%8A%E5%AE%89%E8%A3%85-Tomcat/</guid>
         
         <category>Tomcat</category>
-        
-        
-        <category>DevTools</category>
-        
-      </item>
-    
-      <item>
-        <title>“Vim切换Normal模式变慢”问题解决</title>
-        <description>&lt;h4 id=&quot;问题&quot;&gt;问题&lt;/h4&gt;
-
-&lt;p&gt;准备把 Vim 用起来，今天在装 YouCompleteMe 插件。插件还没装好，反倒遇到了其他的问题：Vim 由 Insert 模式切换为 Normal 模式时，产生了明显的延迟感。急忙去 Google 和 Baidu 查询解决方法，结果半天都没搜出几个结果。&lt;/p&gt;
-
-&lt;h4 id=&quot;解决&quot;&gt;解决&lt;/h4&gt;
-&lt;p&gt;最后把关键词改为英文搜索，才得救！
-在 &lt;code class=&quot;highlighter-rouge&quot;&gt;.vimrc&lt;/code&gt; 文件中增加一行配置如下：&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;timeoutlen&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1000 &lt;span class=&quot;nv&quot;&gt;ttimeoutlen&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;参考资料：&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.johnhawthorn.com/2012/09/vi-escape-delays/&quot;&gt;Eliminating delays on ESC in vim and zsh&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/vim-airline/vim-airline/issues/124&quot;&gt;Delay when switching insert mode to normal mode&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-</description>
-        <pubDate>Tue, 14 Nov 2017 22:02:11 +0800</pubDate>
-        <link>http://localhost:4000/2017/11/Vim%E5%88%87%E6%8D%A2Normal%E6%A8%A1%E5%BC%8F%E5%8F%98%E6%85%A2-%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/11/Vim%E5%88%87%E6%8D%A2Normal%E6%A8%A1%E5%BC%8F%E5%8F%98%E6%85%A2-%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/</guid>
-        
-        <category>Vim</category>
         
         
         <category>DevTools</category>

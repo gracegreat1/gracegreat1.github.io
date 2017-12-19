@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>“使用Python和TCP协议实现邮件客户端”踩坑553小记</title>
+  <meta name="description" content="开始做《Computer Networking: A Top-Down Approach》应用层的编程作业3：邮件客户端。">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="“使用Python和TCP协议实现邮件客户端”踩坑553小记">
+  <meta name="twitter:description" content="开始做《Computer Networking: A Top-Down Approach》应用层的编程作业3：邮件客户端。">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="“使用Python和TCP协议实现邮件客户端”踩坑553小记">
+  <meta property="og:description" content="开始做《Computer Networking: A Top-Down Approach》应用层的编程作业3：邮件客户端。">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2017/12/%E4%BD%BF%E7%94%A8Python%E5%92%8CTCP%E5%8D%8F%E8%AE%AE%E5%AE%9E%E7%8E%B0%E9%82%AE%E4%BB%B6%E5%AE%A2%E6%88%B7%E7%AB%AF-%E8%B8%A9%E5%9D%91%E5%B0%8F%E8%AE%B0/">
+  <link rel="alternate" type="application/rss+xml" title="Joker's" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Joker's 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Joker's logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Joker's" class="blog-button">Joker's</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">A personal blog for Joker.</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">Lady luck favors the one who tries.</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description">Just come in and sit down:)</p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="Visit blog" class="blog-button">Blog</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/gracegreat1" title="@gracegreat1 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:gracegreat1killer@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-slate"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2017-12-19 19:30:11 +0800" itemprop="datePublished" class="post-meta__date date">2017-12-19</time> &#8226; <span class="post-meta__tags tags">Socket</span>
+    </div>
+    <h1 class="post-title">“使用Python和TCP协议实现邮件客户端”踩坑553小记</h1>
+  </header>
+
+  <section class="post">
+    <p>开始做《Computer Networking: A Top-Down Approach》应用层的编程作业3：邮件客户端。</p>
+
+<p>题目要求时创建一个能向任何接收方发送电子邮件的简单邮件客户。这个客户需要通过TCP协议与邮件服务器进行连接，然后通过SMTP协议与邮件服务器交换数据。</p>
+
+<p>好吧，首先套路式地创建 TCP 连接，serverName 自然是我们要进行连接的 SMTP 服务器地址，通过查询我找到了<a href="http://help.163.com/09/1223/14/5R7P3QI100753VB8.html">163免费邮客户端设置的POP3、SMTP、IMAP地址</a>，如图所示：
+<img src="http://ozjtrx3vo.bkt.clouddn.com/2017-12-19-15136877801688.png" alt="" />
+所以我们的 serverName 是 smtp.163.com，serverPort 为 SMTP 的默认端口 25。请求发送出去，我们能收到服务器传回来的 <code class="highlighter-rouge">220 163.com Anti-spam GT for Coremail System (163com[20141201])</code>，好的没有问题。</p>
+
+<h4 id="坑在哪里">坑在哪里？</h4>
+<p>按照中文第六版 P82 所形容的 SMTP 交换报文的格式，我创建了以下消息并用 socket 的 send 方法发送：</p>
+<ul>
+  <li>“HELO 163.com\r\n”</li>
+  <li>“MAIL FROM: <a href="mailto:joker@163.com">joker@163.com</a>\r\n”</li>
+  <li>“RCPT TO: <a href="mailto:111000@qq.com">111000@qq.com</a>\r\n”</li>
+  <li>“DATA”</li>
+  <li>…</li>
+</ul>
+
+<p>结果，从第二条开始就出错了。服务器给我返回了：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>220 163.com Anti-spam GT for Coremail System (163com[20141201])
+
+250 OK
+
+553 authentication is required,163 smtp11,D8CowACnytCrxzhaT7gLEQ--.52662S2 1513670571
+</code></pre>
+</div>
+<p>令人沮丧，说需要认证，好吧。</p>
+
+<h4 id="出坑">出坑</h4>
+
+<p>查了半天资料发现，这是由于 163.com 的<strong>反垃圾邮件</strong>策略决定的，我们简单地通过这种方式发送的邮件难以通过反垃圾邮件的检测而到达邮箱。所以我们需要增加一个用来认证的 <strong>AUTH LOGIN</strong> 过程。</p>
+
+<p>具体实现过程就是，在 <code class="highlighter-rouge">MAIL FROM</code> 之前，添加如下代码：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code># Auth
+clientSocket.send('AUTH LOGIN\r\n')
+recv = clientSocket.recv(1024)
+print(recv)
+if (recv[:3] != '334'):
+    print('334 reply not received from server')
+ 
+clientSocket.send((username + '\r\n').encode())
+recv = clientSocket.recv(1024).decode()
+print(recv)
+if (recv[:3] != '334'):
+    print('334 reply not received from server')
+
+clientSocket.sendall((password + '\r\n').encode())
+recv = clientSocket.recv(1024).decode()
+print(recv)
+if (recv[:3] != '235'):
+    print('235 reply not received from server')
+</code></pre>
+</div>
+<p>而其中的 username 和 password 又是需要 base64 编码的。</p>
+
+<h4 id="相关资料">相关资料</h4>
+<ul>
+  <li><a href="http://blog.csdn.net/welber/article/details/6312610">python模块之smtplib: 用python发送SSL/TLS安全邮件</a></li>
+  <li><a href="https://github.com/moranzcw/Computer-Networking-A-Top-Down-Approach-NOTES/blob/master/SocketProgrammingAssignment/%E4%BD%9C%E4%B8%9A3-%E9%82%AE%E4%BB%B6%E5%AE%A2%E6%88%B7%E7%AB%AF/source/SMTPClient.py">作业3-邮件客户端</a></li>
+</ul>
+
+
+  </section>
+</article>
+
+<section class="read-more">
+   
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2017/12/Coursera-Learning-How-to-Learn/" title="link to Coursera-Learning How to Learn">Coursera-Learning How to Learn</a></h2>
+       <p class="excerpt">《Learning How to Learn: Powerful mental tools to help you master tough subjects》，Coursera 上我完成的第一门课，疯狂打 call！！！考试成绩 97.3%，实在是刷不动第二遍了，因为题目都是英文的且专业词汇很多，本身读的比较慢，考试的27道题，我差不多用了一个番茄加5～10分钟的时间，基本上一分钟一道题吧，考试的很多都是练习原题，为了让我们巩固方法和认知。这门课主要是教我们如何学习，从心理学、大脑的生理...&hellip;</p>
+       <div class="post-list__meta"><time datetime="2017-12-17 21:09:11 +0800" class="post-list__meta--date date">2017-12-17</time> &#8226; <span class="post-list__meta--tags tags">Learning</span><a class="btn-border-small" href=/2017/12/Coursera-Learning-How-to-Learn/>继续阅读</a></div>
+   </div>
+   
+</section>
+
+<section class="post-comments">
+  
+    <div id="disqus_thread"></div>
+    <script>
+    
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2017/12/%E4%BD%BF%E7%94%A8Python%E5%92%8CTCP%E5%8D%8F%E8%AE%AE%E5%AE%9E%E7%8E%B0%E9%82%AE%E4%BB%B6%E5%AE%A2%E6%88%B7%E7%AB%AF-%E8%B8%A9%E5%9D%91%E5%B0%8F%E8%AE%B0/";
+        this.page.identifier = "/2017/12/%E4%BD%BF%E7%94%A8Python%E5%92%8CTCP%E5%8D%8F%E8%AE%AE%E5%AE%9E%E7%8E%B0%E9%82%AE%E4%BB%B6%E5%AE%A2%E6%88%B7%E7%AB%AF-%E8%B8%A9%E5%9D%91%E5%B0%8F%E8%AE%B0/";
+    };
+
+    var disqus_shortname = 'gracegreat1';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>要查看<a href="http://disqus.com/?ref_noscript"> Disqus </a>评论，请启用 JavaScript</noscript>
+    
+  
+  
+  
+  
+</section>
+
+
+            <section class="footer">
+    <footer>
+    	<span class="footer__copyright">本站点采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享 署名-非商业性使用-相同方式共享 4.0 国际 许可协议</a></span>
+        <span class="footer__copyright">由 <a href="https://jekyllrb.com">Jekyll</a> 于 2017-12-19 生成，感谢 <a href="https://www.digitalocean.com/?refcode=30ed2d146762">Digital Ocean</a> 为本站提供稳定的 VPS 服务</span>
+        <span class="footer__copyright">本站由 <a href="http://github.com/gracegreat1">@gracegreat1</a> 创建，采用 <a href="https://github.com/onevcat/vno-jekyll">Vno - Jekyll</a> 作为主题，您可以在 GitHub 找到<a href="https://github.com/onevcat/OneV-s-Den">本站源码</a> - &copy; 2017</span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+    
+  </body>
+
+</html>
