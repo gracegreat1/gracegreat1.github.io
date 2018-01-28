@@ -5,9 +5,312 @@
     <description>Lady luck favors the one who tries.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 19 Dec 2017 21:43:46 +0800</pubDate>
-    <lastBuildDate>Tue, 19 Dec 2017 21:43:46 +0800</lastBuildDate>
+    <pubDate>Sun, 28 Jan 2018 16:41:55 +0800</pubDate>
+    <lastBuildDate>Sun, 28 Jan 2018 16:41:55 +0800</lastBuildDate>
     <generator>Jekyll v3.4.0</generator>
+    
+      <item>
+        <title>我的后端打怪升级之路一：注解</title>
+        <description>&lt;p&gt;大约有一个月没写博啦，中间经历了急性支气管炎、大雪封山、懒癌附身种种，这次想写的是「注解」，一个之前一直很惧怕的东西。&lt;/p&gt;
+
+&lt;p&gt;起因是跟着&lt;a href=&quot;https://www.jianshu.com/p/0beee8e3d397&quot;&gt;【手把手】JavaWeb 入门级项目实战 – 文章发布系统 （第四节）&lt;/a&gt;这篇博文在做入门的 jsp 项目，所以接触到了。接触到了，自然就要了解一下。部分内容出自原博客，侵删。&lt;/p&gt;
+
+&lt;p&gt;我是后端新手，以前完全没接触过后端项目，所以做的时候理解上会有问题，同时我也想把自己遇到的这些问题，用浅显易懂的方式说出来，可以供有相同疑惑的朋友参考。如有不足之处，欢迎指正。&lt;/p&gt;
+
+&lt;p&gt;这篇文章可能有点长，但写的应该比较容易看懂，如果你也是新手，希望你能看到最后，不明白的部分可以留言给我讨论。文章整体脉络应该是比较清晰：首先介绍&lt;code class=&quot;highlighter-rouge&quot;&gt;注解是什么&lt;/code&gt;，然后再看&lt;code class=&quot;highlighter-rouge&quot;&gt;注解的定义&lt;/code&gt;，最后是&lt;code class=&quot;highlighter-rouge&quot;&gt;如何使用&lt;/code&gt;，把这些讲完之后我又举了一个&lt;code class=&quot;highlighter-rouge&quot;&gt;完整的实例&lt;/code&gt;来讲解。&lt;/p&gt;
+
+&lt;h3 id=&quot;注解是什么&quot;&gt;注解是什么&lt;/h3&gt;
+&lt;p&gt;原博主写了一篇文章非常好，推荐仔细看一遍：&lt;a href=&quot;http://www.cnblogs.com/skyblue-li/p/5900228.html&quot;&gt;用大白话聊聊JavaSE – 自定义注解入门&lt;/a&gt;。我看了三遍，才感觉理解个差不多。&lt;/p&gt;
+
+&lt;p&gt;我简单总结一下原博主的思想：注解就像是写给电脑看的注释，有了注解，我们可以通过代码来获得关于一个方法或者一个类的信息。在平时的开发过程中，我们会给一个类、方法或者域添加注释，比如，我们会在方法前面添加关于入参、返回值、以及方法作用的注释。同样的，我们可以给一个类、方法或者域添加注解。&lt;/p&gt;
+
+&lt;p&gt;同时，你仔细观察的话，会发现注解非常像一个空的接口。&lt;/p&gt;
+
+&lt;p&gt;了解了这些内容，我来介绍一下&lt;code class=&quot;highlighter-rouge&quot;&gt;元注解&lt;/code&gt;的概念。典型的元注解有 &lt;code class=&quot;highlighter-rouge&quot;&gt;@Target&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;@Retention&lt;/code&gt; ，这是我们在定义一个注解时需要用到的，&lt;/p&gt;
+
+&lt;p&gt;@Target 用来定义你的注解用在什么地方：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@Target(ElementType.FIELD)&lt;/code&gt; 表示用于一个域&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@Target(ElementType.METHOD)&lt;/code&gt; 表示用于一个方法&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@Target(ElementType.TYPE)&lt;/code&gt; 则表示用于一个类。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;@Retention 用来定义注解在哪一个级别可用：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@Retention(RetentionPolicy.SOURCE)&lt;/code&gt; 表示在源代码中可用&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@Retention(RetentionPolicy.CLASS)&lt;/code&gt; 表示在类文件中可用&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@Retention(RetentionPolicy.RUNTIME)&lt;/code&gt; 表示在运行时可用，一般用的比较多。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;注解怎么写&quot;&gt;注解怎么写&lt;/h3&gt;
+&lt;p&gt;下面让我们来看一下注解的格式，我们参照原作者的方式，来给方法写一个注解：&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;java.lang.annotation.ElementType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;java.lang.annotation.Retention&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;java.lang.annotation.RetentionPolicy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;java.lang.annotation.Target&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;nd&quot;&gt;@Target&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ElementType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;METHOD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Retention&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RetentionPolicy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;RUNTIME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;@interface&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MethodAnnotation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;c1&quot;&gt;// 方法作用，有默认值&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;作者很懒，没有写本方法的作用&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;c1&quot;&gt;// 方法创建时间&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;createTime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;很显然，我们可以通过这个注解来获取方法的作用和创建时间，当然，我们也可以加上作者，无非是再加这么一行：&lt;code class=&quot;highlighter-rouge&quot;&gt;String author() default &quot;Joker&quot;;&lt;/code&gt;。此外，在定义注解的过程中，默认值是可选的。&lt;/p&gt;
+
+&lt;h3 id=&quot;注解如何用&quot;&gt;注解如何用&lt;/h3&gt;
+&lt;p&gt;好，通过上面两部分，我们已经了解了注解是什么，以及如何写一个简单的注解，接下来看一看注解是怎么用的。这要分为两部分来说。&lt;/p&gt;
+
+&lt;h4 id=&quot;给谁用&quot;&gt;给谁用？&lt;/h4&gt;
+&lt;p&gt;既然明白了我们刚刚编写的注解时用来写给方法的，那么我们想获得哪个方法的作用和创建时间呢？&lt;/p&gt;
+
+&lt;p&gt;让我们来随便写一个：&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;util&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;java.util.Date&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;java.text.SimpleDateFormat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DateUtil&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;@MethodAnnotation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;createTime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;2018-01-01&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;formatDate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Date&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;date&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;formatPattern&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;SimpleDateFormat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;formatPattern&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;date&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;现在目标明确了，我们是想获得 &lt;code class=&quot;highlighter-rouge&quot;&gt;formatDate&lt;/code&gt; 这个方法的作用和创建时间，那就先给方法加上我们刚刚创建的注解，也就是&lt;code class=&quot;highlighter-rouge&quot;&gt;@MethodAnnotation()&lt;/code&gt;。括号里面要填入注解中对应的参数和值，有默认值的可以不用写。如果参数没有默认值，且在这里没有填写的话（比如在这里只写一个空括号），ide 会报 &lt;code class=&quot;highlighter-rouge&quot;&gt;The annotion @MethodAnnotation must define the attribute createTime&lt;/code&gt;错误。&lt;/p&gt;
+
+&lt;h4 id=&quot;怎么用&quot;&gt;怎么用？&lt;/h4&gt;
+
+&lt;p&gt;计算机如何在 Java 类中获取我们上面定义的注解信息呢？&lt;/p&gt;
+
+&lt;p&gt;那我们不得不聊聊另外一个名词：&lt;code class=&quot;highlighter-rouge&quot;&gt;反射&lt;/code&gt;。我们先来看一个例子（这里我还是使用原作者的例子，侵删），在 DateUtil.java 中创建一个单元测试（main 方法）如下：&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NoSuchMethodException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SecurityException&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Class&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;classOfDateUtil&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DateUtil&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Method&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;formatDate&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;classOfDateUtil&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getMethod&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;formatDate&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Date&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;MethodAnnotation&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;methodNote&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;formatDate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getAnnotation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MethodAnnotation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;方法描述：&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;methodNote&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;创建日期：&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;methodNote&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;createTime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;首先读一下上面的代码，自己想一想，然后再来看我的总结。&lt;/p&gt;
+
+&lt;p&gt;——————————————————————-分割线——————————————————————-&lt;/p&gt;
+
+&lt;p&gt;关于上面的反射过程，我个人总结为四部曲：&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;获取类的对象。如果在编译器能够知道名字的话，可以使用上面的方法；如果在编译器不知道类的名字，但是可以在运行期获得到类名字符串的话，可以使用以下方法：
+    &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;className&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//在运行期获取的类名字符串&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;Class&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;forName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;className&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;根据类对象获得相应的方法/域，如果注解是加在类上的，可以省略这一步。主要方法有（具体用法可以自己去查询 API 文档）：
+    &lt;ul&gt;
+      &lt;li&gt;Field getField()&lt;/li&gt;
+      &lt;li&gt;Field[] getFields() 返回 Field 数组，包括这个类及其父类的公有域。&lt;/li&gt;
+      &lt;li&gt;Field[] getDeclaredFields() 返回 Field 数组，包括这个类的所有域。&lt;/li&gt;
+      &lt;li&gt;Method getMethod()&lt;/li&gt;
+      &lt;li&gt;Method[] getMethods() 返回所有的公有方法，包括从父类继承来的公有方法。&lt;/li&gt;
+      &lt;li&gt;Method[] getDeclaredMethods() 返回所有的方法，但不包括由父类继承来的方法。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;根据获得的域／方法／类对象，结合 getAnnotations() 方法来获取注解的实例。&lt;/li&gt;
+  &lt;li&gt;根据注解实例，获取对应的信息。结束！&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;几个注意点&quot;&gt;几个注意点&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;不要漏写 default 值。&lt;/li&gt;
+  &lt;li&gt;在第二步时，注意看下用到的方法是否抛出异常。如果有的话，在3中不要忘记抛出。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;看一个完整的例子获取数据库表名&quot;&gt;看一个完整的例子：获取数据库表名&lt;/h3&gt;
+&lt;p&gt;这里的情景是，用户在登陆页面上输入了用户名和密码，点登陆的时候，发送请求到我们的 controller 层，此时我们把用户数据封装为一个 JavaBean，再把 JavaBean 转化为建表语句。为了简化过程，最后一步我省略掉，我们只看怎么获取表名即可。&lt;/p&gt;
+
+&lt;p&gt;关于 JavaBean 大家可以看看原博主的这篇文章：&lt;a href=&quot;http://www.cnblogs.com/skyblue-li/p/5900216.html&quot;&gt;用大白话聊聊JavaSE – 如何理解Java Bean（一）&lt;/a&gt;，写的非常好。&lt;/p&gt;
+
+&lt;p&gt;我简单解释一下 JavaBean 和数据库的对应关系：写 JavaBean 的过程其实就相当于是数据库的设计过程，&lt;code class=&quot;highlighter-rouge&quot;&gt;类&lt;/code&gt;对应着&lt;code class=&quot;highlighter-rouge&quot;&gt;表&lt;/code&gt;，&lt;code class=&quot;highlighter-rouge&quot;&gt;属性&lt;/code&gt;对应着&lt;code class=&quot;highlighter-rouge&quot;&gt;字段&lt;/code&gt;。&lt;/p&gt;
+&lt;h4 id=&quot;第-0-1-步给谁用javabean&quot;&gt;第 0-1 步：给谁用？（JavaBean）&lt;/h4&gt;
+&lt;p&gt;既然是用户，我们新建一个 User 类，我只抽了一部分。&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;User&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+    
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;setUsername&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;username&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getUsername&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;setPassword&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;password&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getPassword&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;h4 id=&quot;第-0-2-步注解怎么写定义注解&quot;&gt;第 0-2 步：注解怎么写（定义注解）&lt;/h4&gt;
+&lt;p&gt;我们新建一个 Annotation 文件，就叫 Table。&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Target&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ElementType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;TYPE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Retention&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RetentionPolicy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;RUNTIME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;@interface&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Table&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;tableName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt; 
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;这里把导包过程省略了，请大家自行补充。&lt;/p&gt;
+
+&lt;p&gt;这步做完之后，我们给 0-1 中的 User 类加上注解，参数设置为 t_user，即表名：&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Table&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tableName&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;t_user&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;User&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;h4 id=&quot;第-1-步获取类的对象&quot;&gt;第 1 步：获取类的对象&lt;/h4&gt;
+&lt;p&gt;这里我们封装一个 TableUtils 作为数据库表的工具类，来使用注解，真正的调用过程我们在单元测试中进行。在刚刚讲解的过程中，其实是把这两部分合二为一了。在实际开发过程中，可能要将不同的模块分包处理，比如 annotions 包、util 包、bean 包等等。&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// 作为工具类API使用，直接传入类的对象&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;TableUtils&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getCreateTablename&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;?&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;clazz&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// 在这里传入类&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;TestMain&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;TableUtils&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getCreateTablename&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;第-2-步获得相应的方法域&quot;&gt;第 2 步：获得相应的方法/域&lt;/h4&gt;
+&lt;p&gt;因为我们的注解是加在类上的，所以这一步可以省略。&lt;/p&gt;
+
+&lt;h4 id=&quot;第-3-步获取注解的实例&quot;&gt;第 3 步：获取注解的实例&lt;/h4&gt;
+&lt;p&gt;既然是获取注解的实例，肯定是在直接使用注解的地方，也就是 TableUtils 中进行。&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getCreateTablename&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;?&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;clazz&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Table&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;table&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;clazz&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getAnnotation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Table&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;        
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;第-4-步获取对应的属性&quot;&gt;第 4 步：获取对应的属性&lt;/h4&gt;
+&lt;p&gt;这里我们要获取表名，可以控制台打印下，看看是不是我们的 &lt;code class=&quot;highlighter-rouge&quot;&gt;t_user&lt;/code&gt;。&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getCreateTablename&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;?&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;clazz&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Table&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;table&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;clazz&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getAnnotation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Table&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt; 
+    &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tableName&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;table&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;tableName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tableName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;至此，一个完整的注解 demo 完成，感谢大家看到最后～&lt;/p&gt;
+
+&lt;h3 id=&quot;参考链接&quot;&gt;参考链接&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://wiki.jikexueyuan.com/project/java-reflection/java-classes.html&quot;&gt;java 类 - 极客学院&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.jianshu.com/p/0beee8e3d397&quot;&gt;【手把手】JavaWeb 入门级项目实战 – 文章发布系统 （第四节）&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.cnblogs.com/skyblue-li/p/5900228.html&quot;&gt;用大白话聊聊JavaSE – 自定义注解入门&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://wiki.jikexueyuan.com/project/mysql/create-tables.html&quot;&gt;创建 MySQL 表 - 极客学院&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;《Java 核心技术 5.7 反射》&lt;/li&gt;
+  &lt;li&gt;《Java 编程思想 第20章 注解》&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Sun, 28 Jan 2018 15:34:11 +0800</pubDate>
+        <link>http://localhost:4000/2018/01/%E6%88%91%E7%9A%84%E5%90%8E%E7%AB%AF%E6%89%93%E6%80%AA%E5%8D%87%E7%BA%A7%E4%B9%8B%E8%B7%AF%E4%B8%80-%E6%B3%A8%E8%A7%A3/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/01/%E6%88%91%E7%9A%84%E5%90%8E%E7%AB%AF%E6%89%93%E6%80%AA%E5%8D%87%E7%BA%A7%E4%B9%8B%E8%B7%AF%E4%B8%80-%E6%B3%A8%E8%A7%A3/</guid>
+        
+        <category>JavaWeb</category>
+        
+        
+        <category>Work</category>
+        
+      </item>
+    
+      <item>
+        <title>2017年终总结&amp;&amp;2018展望</title>
+        <description>&lt;p&gt;2017年终这几天过得是真心很惨淡了，一个人在合肥的城市边缘无亲无故，也没有朋友，然后居然。。。病了，好吧，本来也不是什么大病，让自己前期不注意外加情绪不稳定直接拖成了这个烂样子。每天晚上两三点都要从睡梦中咳醒，对，没错，是咳醒，我以前也还不知道有这种失眠法，真心算是很痛苦了，醒了半天也睡不着，只好安慰自己说快睡快睡，明天起来就能好一点了……然后日复一日，感觉已经快有两周了。白天也是咳不停啊喂，能不能行啊，嗓子痒到不行，我服了。&lt;/p&gt;
+
+&lt;p&gt;于是今天晚上强行来了自习室，不能输在2018的起跑线上啊，那不是我。&lt;/p&gt;
+
+&lt;p&gt;真正的我不应该是精力充沛、不屈不挠的么？&lt;/p&gt;
+
+&lt;h3 id=&quot;2017年终总结&quot;&gt;2017年终总结&lt;/h3&gt;
+&lt;p&gt;2017和2018对我来说是分外重要的两年。我先来总结下2017，主要说两件大事。&lt;/p&gt;
+
+&lt;h4 id=&quot;实习&quot;&gt;实习&lt;/h4&gt;
+&lt;p&gt;在 BAT 进行了一次&lt;strong&gt;不算成功的&lt;/strong&gt;实习。刚开始实习进入XX科技，事实证明在缺少决策过程的情况下做出的选择，很可能对未来发展是不利的。当然那时候也是年少无知，在象牙塔里待得久了以后，以为外面的世界也是如此。今年上半年，我的着眼点是 Android 开发，这是另一个没有过程的决策，仅仅是觉得&lt;strong&gt;有意思&lt;/strong&gt;，这对职业生涯的选择来说确实是过于草率了。&lt;/p&gt;
+
+&lt;p&gt;当然，在去年11月到今年6月的实习过程中，才是真正被虐到以及学到了。首先，自己刚开始不知道大公司的日常冷漠，真的以为互联网公司都是气氛融洽之类的。自己在读大学那会儿人见人称“佳爷”，说来也是很好笑了，都是社团活动造成的假象，而我又没有真正掌握人与人之间交流的精髓，自然是要吃亏。&lt;/p&gt;
+
+&lt;p&gt;有几件事我是没做好的，写出来以示反省：&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;本职工作没有做好，也就刚刚打个及格分。这很可怕，进入职场以后，你的本职工作做的情况如何，其实是别人看待你的第一个窗口。我有几次都是拖到 deadline，另外有一次因为联调原因（虽然最后证明不是我的锅，但我没有认真联调也脱不了干系）直接影响测试，然后刚好负责测试的 QA 看我不顺眼，就把我的自测签章打回了，反正是太丢脸了，这里又要说到2和3的问题了，稍后再讨论。&lt;/li&gt;
+  &lt;li&gt;人际关系没有处理好。职场上总有些人是特别讨厌的，或者和你合不来的。这个时候你要聪明点，不要硬怼，这是对你没好处的，如果真的遇上了小人，在正面交锋的时候，一定要在不违背原则的基础上尽量让他满意。智者千虑还必有一失，你不知道什么时候会犯错，如果招惹了小人，那到时候后果可能真的够你喝一壶的。像我这样签章被打回，好在我是实习生，如果我是正式员工的话，那怎么年终绩效都好不了了吧。以及在之前实习的时候，因为 leader 对女实习生有多次不妥言论，仗着我要离职又是实习，强怼了，不过后来想想还是蛮可怕的。&lt;/li&gt;
+  &lt;li&gt;一定要勤学好问。后来那次长达半年的实习中，我的导师并不怎么管我，刚开始经常一脸懵逼的被叫去开会，时间久了才知道 CR 是什么，需求评审是什么，MRD 是什么，接口评审是什么，showcase 是什么，签章是什么。组里的 Wiki 并不完善，在导师由于事务繁忙没有时间来管我的时候，自己又不问，那只能吃着哑巴亏了。（发现并不是组的问题，后来我快走的时候来了一个实习生，分配的同事就很负责。当然也从侧面反映出，分配什么样的导师并不是你能控制的，但最终的主观能动性还是掌握在你的手里。）做需求的时候也是，导师没告诉过我怎么开始，全靠自己问+google+看同事源码，但刚上手一个4g多的源码，可以说是焦头烂额，那时候多亏一个好心的同事，也算带了我几天，帮我调试代码。非常感谢。借以此告诉自己，有不会的就要及时问，千万不要因为不好意思而拖，尤其正式工作了以后，你刚开始不会还好，应届生嘛，等你慢慢不是应届生了，发现这不会那不会，就更加没办法了。说到这里，想起在今年四五月份，996的那段时间，接过一个需求，结果当时因为不清楚接口设计的原则，有一个字段服务端给不到而我不知道，费了很大的周折，最后真是差点完蛋，又让同事帮忙到凌晨。对于这点，我想说4。&lt;/li&gt;
+  &lt;li&gt;要多多关注自己份外的事情，积极参与。自己份外的，包括非自己产品的 Wiki，非自己团队的有权限的代码，非自己负责的需求，非技术类的活动。要尽可能多了解和你的职位有关或无关的一切事情，像我在3中说到的接口问题，如果我能在之前别人接口评审的时候多多观察，就不会出现这种低级错误而影响后续工作。新人就是对所有的事情都要积极，team building 的时候我也不积极，老板自然是想要一个团队融合度高，这种对什么都不积极，然后分内工作又做不好的，自然慢慢就会被边缘化。2018告诉自己，在新的公司新的团队，要对很多事情积极参与，要慢慢建立自己的核心作用和存在感，给别人一种这样的印象：这个团队没有XXX不行。这样，基本算是可以了。&lt;/li&gt;
+  &lt;li&gt;多说一点，目光要放长远，很多人三四十岁的时候遭遇中年危机，其实很可能是缺乏计划性的结果，多多结交有经验的人，和他们探讨自己可能发展的方向。这一点身边有几个朋友做的不错，要多多向它们学习。之前选 Android 的方向就不够目光长远，Android 的风口已经过去了，那时候还不明白风口这个东西。慢慢来吧，去积累一些东西，慢慢地就能看得远了。&lt;/li&gt;
+  &lt;li&gt;另外就是，对待其他人，态度要谦和，不要动不动就觉得XX是傻逼，一个人再差也有值得佩服的地方，何况比你厉害的人，要多看到别人好的一面。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;找工作&quot;&gt;找工作&lt;/h4&gt;
+&lt;p&gt;总结一句：方向没错，努力程度不够。&lt;/p&gt;
+
+&lt;p&gt;前期很幸运地拿到了几家的后端 offer。然后后面的笔试面试就给自己找各种理由拒了。其实校招最想去地方外企反而一家都没有面，这个对自己也挺失望。春招的时候会再投一下试试看。&lt;/p&gt;
+
+&lt;h4 id=&quot;2018计划&quot;&gt;2018计划&lt;/h4&gt;
+&lt;ol&gt;
+  &lt;li&gt;春招的时候投一些企业试试，在春招之前再努力一波。&lt;/li&gt;
+  &lt;li&gt;培养慢跑的习惯，经过2017年底这一病，再次反省身体健康的重要性。&lt;/li&gt;
+  &lt;li&gt;在入职以后，培养工作的积极感，争取在技术方面跟上并超过平均步伐，2018年底需要对基本的需求完全可控，在非技术方面要积极参与，争取成为团队精神核心。周末避免瘫在家里，没事的时候请到公司看代码。&lt;/li&gt;
+  &lt;li&gt;培养并长期坚持一门爱好，可以是尤克里里或者其他，要达到表演程度。&lt;/li&gt;
+  &lt;li&gt;学会做饭，包括但不限于：卤牛肉、猪蹄的各种做法，工作逐渐稳定了可以考虑尝试烘焙和咖啡调制。&lt;/li&gt;
+  &lt;li&gt;提前预约宫颈癌九价疫苗。&lt;/li&gt;
+  &lt;li&gt;开始培养理财意识。&lt;/li&gt;
+  &lt;li&gt;慢慢学会情绪调节。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;其他&quot;&gt;其他&lt;/h4&gt;
+&lt;p&gt;这是大体的计划，当然不够具体，日后可能也会有修改。&lt;/p&gt;
+
+&lt;p&gt;不过还是要先对某人说一声：你要求的纪实文学我目前并没有在计划之中，因为我还没想要放弃！&lt;/p&gt;
+
+</description>
+        <pubDate>Sun, 31 Dec 2017 17:40:11 +0800</pubDate>
+        <link>http://localhost:4000/2017/12/2017%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93&&2018%E5%B1%95%E6%9C%9B/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/12/2017%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93&&2018%E5%B1%95%E6%9C%9B/</guid>
+        
+        <category>Plan</category>
+        
+        
+        <category>Summary</category>
+        
+      </item>
     
       <item>
         <title>“使用Python和TCP协议实现邮件客户端”踩坑553小记</title>
@@ -527,142 +830,6 @@ DNS 服务器分层查询过程（递归查询 + 迭代查询）：&lt;/p&gt;
         
         
         <category>Thoughts</category>
-        
-      </item>
-    
-      <item>
-        <title>为自己的博客添加搜索引擎（Google）收录（以Namecheap为例）</title>
-        <description>&lt;p&gt;博客搭好了，怎样才能让别人通过 Google 搜索到自己的博客呢？
-下面，我们来看一下具体步骤。&lt;/p&gt;
-
-&lt;h4 id=&quot;step-1进入-google-的-webmaster-工具管理页面&quot;&gt;Step 1：进入 Google 的 WebMaster 工具管理页面&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;进入&lt;a href=&quot;https://www.google.com/webmasters/tools/home&quot;&gt;Search Control - 首页&lt;/a&gt;页面，点击右上角&lt;strong&gt;添加属性&lt;/strong&gt;。在这里，我们把需要收录的页面 url 填入。&lt;br /&gt;
-&lt;img src=&quot;http://ozjtrx3vo.bkt.clouddn.com/2017-11-17-1-2.jpeg&quot; alt=&quot;1&quot; /&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;点击&lt;strong&gt;添加&lt;/strong&gt;后，跳到如下页面：&lt;br /&gt;
-&lt;img src=&quot;http://ozjtrx3vo.bkt.clouddn.com/2017-11-17-2-1.jpeg&quot; alt=&quot;2&quot; /&gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;step-2进入-namecheapcom添加-txt-记录&quot;&gt;Step 2：进入 Namecheap.com，添加 TXT 记录。&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;登陆之后，点 &lt;strong&gt;MANAGE&lt;/strong&gt;。
-&lt;img src=&quot;http://ozjtrx3vo.bkt.clouddn.com/2017-11-17-3-1.jpeg&quot; alt=&quot;3&quot; /&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;进入管理页面后，点击右边的 &lt;strong&gt;Advanced DNS&lt;/strong&gt;。然后点击下方 &lt;strong&gt;ADD NEW RECORD&lt;/strong&gt;。
-&lt;img src=&quot;http:////ozjtrx3vo.bkt.clouddn.com/2017-11-17-4-1.jpeg&quot; alt=&quot;4&quot; /&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;添加新的记录，类型选 &lt;strong&gt;TXT Record&lt;/strong&gt;，Host 填 &lt;strong&gt;@&lt;/strong&gt;，Value 填入 Step 1 中的字符串。
-&lt;img src=&quot;http:////ozjtrx3vo.bkt.clouddn.com/2017-11-17-5-1.jpeg&quot; alt=&quot;5&quot; /&gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;step-3在-google-search-console-页面上点验证&quot;&gt;Step 3：在 Google Search Console 页面上点&lt;strong&gt;验证&lt;/strong&gt;。&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;我们会看到如下页面：
-&lt;img src=&quot;http:////ozjtrx3vo.bkt.clouddn.com/2017-11-17-6-1.jpeg&quot; alt=&quot;6&quot; /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;step-4获得-sitemap-文件&quot;&gt;Step 4：获得 sitemap 文件&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;进入 &lt;a href=&quot;https://www.xml-sitemaps.com/&quot;&gt;XML-Sitemaps.com Sitemap Generator&lt;/a&gt; 页面，输入博客地址，点击 &lt;strong&gt;start&lt;/strong&gt;。
-&lt;img src=&quot;http://ozjtrx3vo.bkt.clouddn.com/2017-11-17-7-2.jpeg&quot; alt=&quot;7&quot; /&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;等待搜索完成，点击 &lt;strong&gt;VIEW SITEMAP DETAILS&lt;/strong&gt;。
-&lt;img src=&quot;http://ozjtrx3vo.bkt.clouddn.com/2017-11-17-8-1.jpeg&quot; alt=&quot;8&quot; /&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;下载 SITEMAP 文件并将其放入网站的根目录。&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;step-4在-google-search-console-中添加你的-sitemap-url&quot;&gt;Step 4：在 Google Search console 中添加你的 sitemap URL。&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;打开 Step 1 中的 &lt;a href=&quot;https://www.google.com/webmasters/tools/home&quot;&gt;Google Search console&lt;/a&gt; 网站，添加你的 sitemap URL。在这里，我的 sitemap URL 为：&lt;code class=&quot;highlighter-rouge&quot;&gt;http://gracegreat1.me/sitemap.url&lt;/code&gt;。（因为上一步中已经将该文件放入网站的根目录）
-&lt;img src=&quot;http:////ozjtrx3vo.bkt.clouddn.com/2017-11-17-9-1.jpeg&quot; alt=&quot;9&quot; /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;参考链接&quot;&gt;参考链接&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://support.google.com/a/answer/6142985?hl=zh-Hans&quot;&gt;Namecheap：验证您的域名&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://support.google.com/webmasters/answer/156184?hl=zh-Hans&amp;amp;ref_topic=4581190&quot;&gt;了解站点地图&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.ezlippi.com/blog/2015/03/github-pages-blog.html&quot;&gt;利用github-pages建立个人博客&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://jin-yang.github.io/post/jekyll.html&quot;&gt;使用 Jekyll 搭建 Blog&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-</description>
-        <pubDate>Fri, 17 Nov 2017 14:40:11 +0800</pubDate>
-        <link>http://localhost:4000/2017/11/%E4%B8%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E-Google-%E6%94%B6%E5%BD%95-%E4%BB%A5-Namecheap-%E4%B8%BA%E4%BE%8B/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/11/%E4%B8%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E-Google-%E6%94%B6%E5%BD%95-%E4%BB%A5-Namecheap-%E4%B8%BA%E4%BE%8B/</guid>
-        
-        <category>Jekyll</category>
-        
-        
-        <category>DevTools</category>
-        
-      </item>
-    
-      <item>
-        <title>在macOS 10.12 Sierra上安装Tomcat</title>
-        <description>&lt;p&gt;来源：&lt;a href=&quot;https://wolfpaulus.com/mac/tomcat/&quot;&gt;Installing Tomcat on macOS 10.12 Sierra&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;今天在 mac 上装 Tomcat，遇到了一点问题。就找了一篇适合 Sierra 的教程，简单翻译下，供大家参考。如有侵权，请告知删除。&lt;/p&gt;
-
-&lt;h4 id=&quot;准备条件java&quot;&gt;准备条件：Java&lt;/h4&gt;
-&lt;p&gt;首先装好 JDK，下载地址：&lt;a href=&quot;http://www.oracle.com/technetwork/java/javase/downloads/index.html&quot;&gt;Java SE - Downloads&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;这里 JDK 安装包是 dmg 格式，很容易安装。随后打开终端，输入：&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;java -version
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;会出现下面的内容：&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;java version &quot;1.8.0_152-ea
-Java(TM) SE Runtime Environment (build 1.8.0_152-ea-b05)
-Java HotSpot(TM) 64-Bit Server VM (build 25.152-b05, mixed mode)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;Tomcat 9.x 需要 Java 8 或者更新的版本。&lt;/p&gt;
-
-&lt;h4 id=&quot;安装-tomcat&quot;&gt;安装 Tomcat&lt;/h4&gt;
-&lt;ol&gt;
-  &lt;li&gt;从&lt;a href=&quot;https://tomcat.apache.org/download-90.cgi&quot;&gt;这里&lt;/a&gt;下载 apache-tomcat-9.0.1 (beta) 核心模块的二进制发行版。在二进制发行版（Binary Distributions)／&lt;strong&gt;core&lt;/strong&gt; 区域，我选择了 &lt;strong&gt;tar.gz&lt;/strong&gt; 格式进行下载（我下载到了&lt;em&gt;下载 - Downlads&lt;/em&gt; 文件夹中）。&lt;/li&gt;
-  &lt;li&gt;打开／解压该文件，会在你的&lt;em&gt;下载（Downloads）&lt;/em&gt;文件夹中产生一个新的文件夹（如，~/Downloads/apache-tomcat-9.0.1）。&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;打开终端，把该解压后的文件夹移动到 /usr/local 路径下。&lt;br /&gt;
-  &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo mkdir -p /usr/local&lt;/code&gt;&lt;br /&gt;
-  &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo mv ~/Downloads/apache-tomat-9.0.1 /usr/local&lt;/code&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;为了能使以后更新的版本方便地替换该版本，我们需要在用到 Tomcat 的地方创建一个软链接（首先要删除你之前安装过的旧的链接）&lt;br /&gt;
-  &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo rm -f /Library/Tomcat&lt;/code&gt;&lt;br /&gt;
-  &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo ln -s /usr/local/apache-tomcat-9.0.1 /Library/Tomcat&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;更换 /Library/Tomcat 目录的所有者：&lt;br /&gt;
-  &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo chown -R &amp;lt;your_username&amp;gt; /Library/Tomcat&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;把所有的脚本变为可执行的：&lt;br /&gt;
-  &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo chmod +x /Library/Tomcat/bin/*.sh&lt;/code&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;注：鉴于鄙人才疏学浅，有几步我也不知道作用是什么，只是在配置的时候遇到了困难去参考了原博的博客，没有再深究。需要更详细信息的朋友请移步原文。
-希望能对大家有一点点帮助。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-</description>
-        <pubDate>Wed, 15 Nov 2017 19:44:11 +0800</pubDate>
-        <link>http://localhost:4000/2017/11/%E5%9C%A8macOS-10.12-Sierra-%E4%B8%8A%E5%AE%89%E8%A3%85-Tomcat/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/11/%E5%9C%A8macOS-10.12-Sierra-%E4%B8%8A%E5%AE%89%E8%A3%85-Tomcat/</guid>
-        
-        <category>Tomcat</category>
-        
-        
-        <category>DevTools</category>
         
       </item>
     
