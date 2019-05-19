@@ -1,5 +1,8 @@
-# Another Try
+# This is a new Start. 
 
-I'm back with a new blog.<br>
-But how long can I persist in it?<br>
-Just go and see.
+不知道重新始多少次了，这次又重新开始了。
+
+拜托坚持久一点。
+
+2019-05-19
+
